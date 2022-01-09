@@ -1,0 +1,26 @@
+{
+  "name": "ptudwebproject",
+  "version": "1.0.0",
+  "description": "doan nhom\r 1712519 Pham Vo Hoang Khang",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hduog0199/PTUDWebProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hduog0199/PTUDWebProject/issues"
+  },
+  "homepage": "https://github.com/hduog0199/PTUDWebProject#readme",
+  "dependencies": {
+    "knex": "^0.95.15",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.1"
+  }
+}
