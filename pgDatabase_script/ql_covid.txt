@@ -1,0 +1,541 @@
+DROP TABLE IF EXISTS "Tinh";
+CREATE TABLE "Tinh" (
+  "IDTinh" serial,
+  "Name" varchar(50),
+  PRIMARY KEY("IDTinh")
+)
+;
+
+DROP TABLE IF EXISTS "QuanHuyen";
+CREATE TABLE "QuanHuyen" (
+  "IDQuanHuyen" serial,
+  "Name" varchar(50),
+  "IDTinh" serial,
+  PRIMARY KEY("IDQuanHuyen")
+)
+;
+
+DROP TABLE IF EXISTS "PhuongXa";
+CREATE TABLE "PhuongXa" (
+  "IDPhuongXa" serial,
+  "Name" varchar(50),
+  "IDQuanHuyen" serial,
+  PRIMARY KEY("IDPhuongXa")
+)
+;
+
+DROP TABLE IF EXISTS "DiaDiemCachLy";
+CREATE TABLE "DiaDiemCachLy" (
+  "Name" varchar(50),
+  "IDKhuCachLy" serial,
+  "SucChua" integer,
+  "SoLuongTiepNhan" integer,
+  "IDPhuongXa" serial,
+  PRIMARY KEY("IDKhuCachLy")
+)
+;
+
+
+DROP TABLE IF EXISTS "User";
+CREATE TABLE "User" (
+  "Ten" varchar(50),
+  "CMND" varchar(12),
+  "NamSinh" integer,
+  "DiaChi" varchar(150),
+  "PasswordHash" varchar(70),
+  "Permission" integer,
+--  "SoDuTaiKhoa" bigint,
+  PRIMARY KEY("CMND")
+)
+;
+--"Permission": 2=admin  -  1 = nguoiquanli  -  0=NguoiDuocQuanLi 
+
+DROP TABLE IF EXISTS "NguoiDuocQuanLi";
+CREATE TABLE "NguoiDuocQuanLi" (
+  "CMND" varchar(12),
+  "ID_TrangThaiHienTai" serial,
+  "NguoiLienQuan" varchar(12),
+  PRIMARY KEY("ID_TrangThaiHienTai")
+)
+;
+
+
+DROP TABLE IF EXISTS "TrangThai_NoiDieuTri";
+CREATE TABLE "TrangThai_NoiDieuTri" (
+  "CMND" varchar(12),
+  "TrangThai" varchar(12),
+  "NoiDieuTri" varchar(50),
+  "ID_TrangThaiHienTai" serial,
+  "isCurrent" boolean
+)
+;
+--isCurrent: ???????????????????????????????
+
+--DROP TABLE IF EXISTS "LichSuThanhToan";
+--CREATE TABLE "LichSuThanhToan" (
+--  "MaGiaoDich" varchar(50) NOT NULL,
+--  "CMNDNguoiChuyen" varchar(12) NOT NULL,
+--  "SoTien" bigint NOT NULL,
+--  "ThoiDiemGiaoDich" timestamp NOT NULL,
+--  "LoaiGiaoDich" boolean NOT NULL,
+--  PRIMARY KEY("MaGiaoDich")
+--)
+--;     
+----MaGiaoDich= CMND+ThoiDiemGiaoDich
+----LoaiGiaoDich: false=Chuyển đi - true= Nhận được
+
+
+
+
+DROP TABLE IF EXISTS "SanPham";
+CREATE TABLE "SanPham" (
+  "IDSanPham" serial,
+  "TenSanPham" varchar(50),
+  "GiaTien" bigserial,
+  "DonViDinhLuong" varchar(50),
+  PRIMARY KEY("IDSanPham")
+)
+;
+
+DROP TABLE IF EXISTS "GoiNhuYeuPham";
+CREATE TABLE "GoiNhuYeuPham" (
+  "IDGoi" serial,
+  "TenGoi" varchar(50),
+  "MucGioiHanGoiChoMotNguoi" integer,
+  "ThoiGianGioiHan" date,
+  PRIMARY KEY("IDGoi")
+)
+;
+--ngay, tuan, thang--
+
+DROP TABLE IF EXISTS "SanPham_GoiNhuYeuPham";
+CREATE TABLE "SanPham_GoiNhuYeuPham" (
+  "ID" serial,
+  "IDSanPham" serial,
+  "IDGoi" serial,
+  "MucGioiHanSanPhamTrongMotGoi" integer,
+  PRIMARY KEY("ID")
+)
+;
+
+DROP TABLE IF EXISTS "LichSuMuaHang";
+CREATE TABLE "LichSuMuaHang" (
+  "ID" serial,
+  "IDGoi" serial,
+  "CMND" varchar(12),
+  PRIMARY KEY("ID")
+)
+;
+
+
+
+ALTER TABLE "NguoiDuocQuanLi" ADD CONSTRAINT "FK_User_NguoiDuocQuanLi" FOREIGN KEY ("CMND") REFERENCES "User" ("CMND");
+ALTER TABLE "TrangThai_NoiDieuTri" ADD CONSTRAINT "FK_NguoiDuocQuanLi_TrangThai_NoiDieuTri" FOREIGN KEY ("ID_TrangThaiHienTai") REFERENCES "NguoiDuocQuanLi" ("ID_TrangThaiHienTai");
+ALTER TABLE "QuanHuyen" ADD CONSTRAINT "FK_Tinh_QuanHuyen" FOREIGN KEY ("IDTinh") REFERENCES "Tinh" ("IDTinh");
+ALTER TABLE "PhuongXa" ADD CONSTRAINT "FK_QuanHuyen_PhuongXa" FOREIGN KEY ("IDQuanHuyen") REFERENCES "QuanHuyen" ("IDQuanHuyen");
+ALTER TABLE "DiaDiemCachLy" ADD CONSTRAINT "FK_PhuongXa_DiaDiemCachLy" FOREIGN KEY ("IDPhuongXa") REFERENCES "PhuongXa" ("IDPhuongXa");
+ALTER TABLE "LichSuMuaHang" ADD CONSTRAINT "FK_User_LichSuMuaHang" FOREIGN KEY ("CMND") REFERENCES "User" ("CMND");
+ALTER TABLE "LichSuMuaHang" ADD CONSTRAINT "FK_GoiNhuYeuPham_LichSuMuaHang" FOREIGN KEY ("IDGoi") REFERENCES "GoiNhuYeuPham" ("IDGoi");
+ALTER TABLE "SanPham_GoiNhuYeuPham" ADD CONSTRAINT "FK_GoiNhuYeuPham_SanPham_GoiNhuYeuPham" FOREIGN KEY ("IDGoi") REFERENCES "GoiNhuYeuPham" ("IDGoi");
+ALTER TABLE "SanPham_GoiNhuYeuPham" ADD CONSTRAINT "FK_SanPham_SanPham_GoiNhuYeuPham" FOREIGN KEY ("IDSanPham") REFERENCES "SanPham" ("IDSanPham");
+
+
+
+
+
+DELETE FROM "Tinh"; 
+INSERT INTO "Tinh" values
+(1,'Tp. Hồ Chí Minh'),
+(2,'Tỉnh Long An'),
+(3,'Tỉnh Tiền Giang'),
+(4,'Tỉnh Đồng Tháp'),
+(5,'Tỉnh Bến Tre');
+--SELECT * FROM "Tinh";
+
+
+DELETE FROM "QuanHuyen"; 
+INSERT INTO "QuanHuyen" values
+(1,'Quận Tân Bình',1),
+(2,'Quận Tân Phú',1),
+(3,'Quận Bình Tân',1),
+(4,'Quận Bình Thạnh',1),
+(5,'Huyện Bình Chánh',1),
+(6,'Huyện Bến Lức',2),
+(7,'Huyện Cần Giuộc',2),
+(8,'Huyện Tân Trụ',2),
+(9,'Huyện Châu Thành',2),
+(10,'Huyện Đức Hòa',2),
+(11,'Huyện Tân Phước',3),
+(12,'Huyện Cái Bè',3),
+(13,'Huyện Cai Lậy',3),
+(14,'Huyện Gò Công Đông',3),
+(15,'Huyện Chợ Gạo',3),
+(16,'Huyện Cao Lãnh',4),
+(17,'Huyện Lai Vung',4),
+(18,'Huyện Lấp Vò',4),
+(19,'Huyện Hồng Ngự',4),
+(20,'Huyện Tháp Mười',4),
+(21,'Huyện Chợ Lách',5),
+(22,'Huyện Mỏ Cày Nam',5),
+(23,'Huyện Giồng Trôm',5),
+(24,'Huyện Bình Đại',5),
+(25,'Huyện Ba Tri',5);
+--SELECT * FROM "QuanHuyen";
+
+
+
+DELETE FROM "PhuongXa"; 
+INSERT INTO "PhuongXa" values
+(1,'Phường 1',1),
+(2,'Phường 2',1),
+(3,'Phường 3',1),
+(4,'Phường 4',1),
+(5,'Phường 5',1),
+(6,'Phường Phú Trung',2),
+(7,'Phường Hòa Thạnh',2),
+(8,'Phường Tân Thành',2),
+(9,'Phường Tân Sơn Nhì',2),
+(10,'Phường Phú Thọ Hòa',2),
+(11,'Phường Bình Trị Đông',3),
+(12,'Phường Bình Hưng Hòa',3),
+(13,'Phường Tân Tạo',3),
+(14,'Phường An Lạc',3),
+(15,'Phường Tân Tạo A',3),
+(16,'Phường 17',4),
+(17,'Phường 22',4),
+(18,'Phường 18',4),
+(19,'Phường 24',4),
+(20,'Phường 15',4),
+(21,'Xã An Phú Tây',5),
+(22,'Xã Bình Hưng',5),
+(23,'Xã Tân Kiên',5),
+(24,'Xã Vĩnh Lộc A',5),
+(25,'Xã Vĩnh Lộc B',5),
+(26,'Xã Thạnh Lợi',6),
+(27,'Xã Thạnh Hòa',6),
+(28,'Xã Lương Hòa',6),
+(29,'Xã Mỹ Yên',6),
+(30,'Xã Phước Lợi',6),
+(31,'Xã Phước Lý',7),
+(32,'Xã Phước Hậu',7),
+(33,'Xã Phước Lâm',7),
+(34,'Xã Long Phụng',7),
+(35,'Xã Đông Thạnh',7),
+(36,'Xã Bình Lãng',8),
+(37,'Xã Nhựt Ninh',8),
+(38,'Xã Đức Tân',8),
+(39,'Xã Tân Bình',8),
+(40,'Xã Bình Trinh Đông',8),
+(41,'Xã Bàn Long',9),
+(42,'Xã Bình Đức',9),
+(43,'Xã Bình Trưng',9),
+(44,'Xã Nhị Bình',9),
+(45,'Xã Song Thuận',9),
+(46,'Xã Lộc Giang',10),
+(47,'Xã Tân Mỹ',10),
+(48,'Xã Hiệp Hòa',10),
+(49,'Xã Tân Phú',10),
+(50,'Xã Hựu Thạnh',10),
+(51,'Xã Phú Mỹ',11),
+(52,'Xã Tân Hòa Thành',11),
+(53,'Xã Thạnh Hoà',11),
+(54,'Xã Thạnh Mỹ',11),
+(55,'Xã Thạnh Tân',11),
+(56,'Xã An Cư',12),
+(57,'Xã Hậu Thành',12),
+(58,'Xã Thiện Trí',12),
+(59,'Xã Tân Hưng',12),
+(60,'Xã Tân Thanh',12),
+(61,'Xã Thạnh Lộc',13),
+(62,'Xã Phú Cường',13),
+(63,'Xã Phú Nhuận',13),
+(64,'Xã Bình Phú',13),
+(65,'Xã Cẩm Sơn',13),
+(66,'Xã Tăng Hoà',14),
+(67,'Xã Gia Thuận',14),
+(68,'Xã Tân Đông',14),
+(69,'Xã Bình Ân',14),
+(70,'Xã Phước Trung',14),
+(71,'Xã Bình Phan',15),
+(72,'Xã Song Bình',15),
+(73,'Xã Quơn Long',15),
+(74,'Xã Phú Kiết',15),
+(75,'Xã Hòa Tịnh',15),
+(76,'Xã Tân Nghĩa',16),
+(77,'Xã Phong Mỹ',16),
+(78,'Xã Mỹ Thọ',16),
+(79,'Xã Mỹ Hiệp',16),
+(80,'Xã Bình Thạnh',16),
+(81,'Xã Phong Hòa',17),
+(82,'Xã Định Hòa',17),
+(83,'Xã Tân Hòa',17),
+(84,'Xã Vĩnh Thới',17),
+(85,'Xã Long Thắng',17),
+(86,'Xã Tân Mỹ',18),
+(87,'Xã Tân Khánh Trung',18),
+(88,'Xã Long Hưng A',18),
+(89,'Xã Long Hưng B',18),
+(90,'Xã Vĩnh Thạnh',18),
+(91,'Xã Thường Lạc',19),
+(92,'Xã Long Khánh A',19),
+(93,'Xã Long Khánh B',19),
+(94,'Xã Long Thuận',19),
+(95,'Xã Thường Phước 1',19),
+(96,'Xã Mỹ Đông',20),
+(97,'Xã Mỹ Quý',20),
+(98,'Xã Mỹ An',20),
+(99,'Xã Phú Điền',20),
+(100,'Xã Láng Biển',20),
+(101,'Xã Vĩnh Bình',21),
+(102,'Xã Hòa Nghĩa',21),
+(103,'Xã Long Thới',21),
+(104,'Xã Phú Sơn',21),
+(105,'Xã Tân Thiềng',21),
+(106,'Xã Tân Hội',22),
+(107,'Xã Phước Hiệp',22),
+(108,'Xã Bình Khánh',22),
+(109,'Xã An Thạnh',22),
+(110,'Xã An Định',22),
+(111,'Xã Phước Long',23),
+(112,'Xã Hưng Phong',23),
+(113,'Xã Long Mỹ',23),
+(114,'Xã Tân Hào',23),
+(115,'Xã Bình Thành',23),
+(116,'Xã Bình Thới',24),
+(117,'Xã Thới Lai',24),
+(118,'Xã Thạnh Trị',24),
+(119,'Xã Thới Thuận',24),
+(120,'Xã Thạnh Phước',24),
+(121,'Xã An Hiệp',25),
+(122,'Xã Tân Thủy',25),
+(123,'Xã Bảo Thuận',25),
+(124,'Xã An Bình Tây',25),
+(125,'Xã Phú Lễ',25);
+--SELECT * FROM "PhuongXa";
+
+
+
+
+DELETE FROM "DiaDiemCachLy"; 
+INSERT INTO "DiaDiemCachLy"("Name","SucChua","SoLuongTiepNhan") values
+
+('Khu cách ly số 1',240,103),
+('Khu cách ly số 2',190,85),
+('Khu cách ly số 3',202,81),
+('Khu cách ly số 4',110,71),
+('Khu cách ly số 5',145,91),
+('Khu cách ly số 6',150,102),
+('Khu cách ly số 7',150,62),
+('Khu cách ly số 8',175,42),
+('Khu cách ly số 9',160,32),
+('Khu cách ly số 10',120,92),
+('Khu cách ly số 11',150,53),
+('Khu cách ly số 12',130,63),
+('Khu cách ly số 13',200,33),
+('Khu cách ly số 14',180,23),
+('Khu cách ly số 15',175,83),
+('Khu cách ly số 16',185,74),
+('Khu cách ly số 17',175,45),
+('Khu cách ly số 18',150,45),
+('Khu cách ly số 19',140,74),
+('Khu cách ly số 20',180,84),
+('Khu cách ly số 21',220,65),
+('Khu cách ly số 22',170,55),
+('Khu cách ly số 23',160,65),
+('Khu cách ly số 24',125,56),
+('Khu cách ly số 25',150,59),
+('Khu cách ly số 26',135,66),
+('Khu cách ly số 27',125,69),
+('Khu cách ly số 28',99,66),
+('Khu cách ly số 29',109,16),
+('Khu cách ly số 30',88,62),
+('Khu cách ly số 31',120,77),
+('Khu cách ly số 32',100,72),
+('Khu cách ly số 33',110,70),
+('Khu cách ly số 34',120,70),
+('Khu cách ly số 35',150,74),
+('Khu cách ly số 36',155,80),
+('Khu cách ly số 37',120,98),
+('Khu cách ly số 38',85,68),
+('Khu cách ly số 39',95,38),
+('Khu cách ly số 40',90,48),
+('Khu cách ly số 41',85,39),
+('Khu cách ly số 42',50,19),
+('Khu cách ly số 43',75,19),
+('Khu cách ly số 44',75,49),
+('Khu cách ly số 45',76,39),
+('Khu cách ly số 46',67,4),
+('Khu cách ly số 47',67,10),
+('Khu cách ly số 48',100,18),
+('Khu cách ly số 49',100,41),
+('Khu cách ly số 50',120,102),
+('Khu cách ly số 51',120,91),
+('Khu cách ly số 52',100,40),
+('Khu cách ly số 53',100,45),
+('Khu cách ly số 54',95,63),
+('Khu cách ly số 55',79,19),
+('Khu cách ly số 56',89,27),
+('Khu cách ly số 57',78,29),
+('Khu cách ly số 58',98,42),
+('Khu cách ly số 59',63,12),
+('Khu cách ly số 60',45,21),
+('Khu cách ly số 61',87,43),
+('Khu cách ly số 62',87,13),
+('Khu cách ly số 63',45,10),
+('Khu cách ly số 64',78,11),
+('Khu cách ly số 65',66,39),
+('Khu cách ly số 66',55,19),
+('Khu cách ly số 67',78,66),
+('Khu cách ly số 68',74,42),
+('Khu cách ly số 69',71,40),
+('Khu cách ly số 70',47,14),
+('Khu cách ly số 71',65,5),
+('Khu cách ly số 72',56,11),
+('Khu cách ly số 73',45,10),
+('Khu cách ly số 74',54,9),
+('Khu cách ly số 75',50,23),
+('Khu cách ly số 76',43,14),
+('Khu cách ly số 77',64,16),
+('Khu cách ly số 78',60,17),
+('Khu cách ly số 79',50,26),
+('Khu cách ly số 80',50,39),
+('Khu cách ly số 81',60,17),
+('Khu cách ly số 82',100,77),
+('Khu cách ly số 83',85,36),
+('Khu cách ly số 84',85,26),
+('Khu cách ly số 85',75,40),
+('Khu cách ly số 86',76,25),
+('Khu cách ly số 87',79,28),
+('Khu cách ly số 88',97,40),
+('Khu cách ly số 89',65,38),
+('Khu cách ly số 90',82,8),
+('Khu cách ly số 91',111,59),
+('Khu cách ly số 92',100,60),
+('Khu cách ly số 93',99,40),
+('Khu cách ly số 94',98,75),
+('Khu cách ly số 95',50,11),
+('Khu cách ly số 96',100,60),
+('Khu cách ly số 97',91,29),
+('Khu cách ly số 98',90,46),
+('Khu cách ly số 99',89,65),
+('Khu cách ly số 100',80,66),
+('Khu cách ly số 101',77,16),
+('Khu cách ly số 102',77,21),
+('Khu cách ly số 103',76,27),
+('Khu cách ly số 104',65,28),
+('Khu cách ly số 105',100,54),
+('Khu cách ly số 106',125,45),
+('Khu cách ly số 107',123,65),
+('Khu cách ly số 108',101,10),
+('Khu cách ly số 109',65,24),
+('Khu cách ly số 110',75,29),
+('Khu cách ly số 111',75,42),
+('Khu cách ly số 112',75,33),
+('Khu cách ly số 113',75,31),
+('Khu cách ly số 114',80,43),
+('Khu cách ly số 115',90,13),
+('Khu cách ly số 116',110,34),
+('Khu cách ly số 117',120,94),
+('Khu cách ly số 118',90,44),
+('Khu cách ly số 119',85,29),
+('Khu cách ly số 120',60,23),
+('Khu cách ly số 121',70,45),
+('Khu cách ly số 122',60,35),
+('Khu cách ly số 123',95,56),
+('Khu cách ly số 124',50,42),
+('Khu cách ly số 125',90,60);
+--SELECT * FROM "DiaDiemCachLy";
+
+
+DELETE FROM "User"; 
+INSERT INTO "User" values
+('Nguyễn Văn Nam','0258147459', 1987, '8E/2 Xã Phú Lễ Huyện Ba Tri Tỉnh Bến Tre','283370f9ab31f4d00d4482fd7bd1d225563c3eb404fe947732c4e5b9075e9d8e',0),
+('Nguyễn Văn A','0258160569', 1989, '94A32 Xã Phú Sơn Huyện Chợ Lách Tỉnh Bến Tre','',0),
+('Nguyễn Văn Sóc','079097064665', 1966, '32 Đường Lam Son Phường 2 Quận Tân Bình Tp. Hồ Chí Minh','01e3f9c39c569b9c0eba926d24dbcac9a8d2c7e5ac1e75945948a7af04a5e053',2),
+('Nguyễn Thành Tí','079097007799', 1962, '33A13 Ấp 4 Xã Nhị Bình Huyện Châu Thành Tỉnh Long An','4bef2a9a7a8367b1f9545ac1da88a839f8d3e09616636fff0b987dec94683d55',1),
+('Nguyễn Thị Mầu','025095078804', 1972, '242 Ấp 1 Xã Định Hòa Huyện Lai Vung Tỉnh Đồng Tháp','32f4985f385cf93ead0bb8f374b36031cd395e0715a89475996f34854fc32973',1),
+('Nguyễn Thị Lã Liễu','025899966', 1988, '64/5 Ấp 6 Xã Bình Phú Huyện Cai Lậy Tỉnh Tiền Giang','9a15ff56324e4488a98e6105b049cd0f00b7272b36bbd16d37f390c3cc32ff5a',0),
+('Nguyễn Thân Trung','002100966330', 1956, '1A1 Ấp 4 Xã Lương Hòa Huyện Bến Lức Tỉnh Long An','6fe7d15716629d91e064ac6136d5ca928c081f9d6afee6c39b5efd8984fe439d',0);
+--SELECT * FROM "User";
+--Địachỉ= số nhà + tên đường (ấp) + XaPhuong + QuanHuyen + Tinh
+
+
+
+
+
+DELETE FROM "NguoiDuocQuanLi"; 
+INSERT INTO "NguoiDuocQuanLi" values
+('0258147459',1,'025899966'),
+('025899966',2,''),
+('002100966330',3,'025899966'),
+('025095078804',4,'002100966330');
+--SELECT * FROM "NguoiDuocQuanLi";
+
+DELETE FROM "TrangThai_NoiDieuTri"; 
+INSERT INTO "TrangThai_NoiDieuTri" values
+('0258147459','F1','Tại nhà',1,false),
+('025899966','F0','Khu cách ly số 64',2,false),
+('002100966330','F1','Khu cách ly số 28',3,true);
+--SELECT * FROM "TrangThai_NoiDieuTri";
+
+
+
+
+DELETE FROM "SanPham"; 
+INSERT INTO "SanPham" values
+(1,'Rau xà lách',8000,'kilogams'),
+(2,'Rau tần ô',10000,'kilogams'),
+(3,'Thịt bò nạm',200000,'kilogams'),
+(4,'Thịt bò tái',220000,'kilogams'),
+(5,'Thịt bò nhập khẩu', 180000,'kilogams'),
+(6,'Thịt heo nhập khẩu',120000,'kilogams'),
+(7,'Thịt heo đùi',110000,'kilogams'),
+(8,'Thịt heo vai',100000,'kilogams'),
+(9,'Xúc xích heo',6000,'cây'),
+(10,'Xúc xích bò',6000,'cây'),
+(11,'cơm phần - sườn',20000,'hộp'),
+(12,'cơm phần - cá thu',20000,'hộp'),
+(13,'cơm phần - bò xào',20000,'hộp'),
+(14,'cơm phần - thịt kho',20000,'hộp'),
+(15,'cơm phần - tép rang',20000,'hộp'),
+(16,'Dưa hấu',20000,'kilogams'),
+(17,'Dưa gang',22000,'kilogams'),
+(18,'Táo',420000,'kilogams'),
+(19,'Lê',25000,'kilogams'),
+(20,'Mận An Phước',10000,'kilogams');
+--SELECT * FROM "SanPham";
+
+DELETE FROM "GoiNhuYeuPham"; 
+INSERT INTO "GoiNhuYeuPham" values
+(1,'Combo Rau quả 1',2,'2021-1-1'),
+(2,'Combo Rau quả 2',3,'2021-1-1'),
+(3,'Combo Rau quả 3',2,'2021-1-1'),
+(4,'Combo Rau quả 4',3,'2021-1-1'),
+(5,'Combo Thịt đùi',2,'2020-12-1'),
+(6,'Combo Thịt bò',1,'2020-12-1'),
+(7,'Combo Cá',1,'2020-12-1');
+--SELECT * FROM "GoiNhuYeuPham";
+
+DELETE FROM "SanPham_GoiNhuYeuPham"; 
+INSERT INTO "SanPham_GoiNhuYeuPham" values
+(1,1,1,1),
+(2,2,1,1),
+(3,18,1,2),
+(4,20,1,2),
+(5,1,5,2),
+(6,7,5,2),
+(7,19,5,2);
+--SELECT * FROM "SanPham_GoiNhuYeuPham";
+--MucGioiHan tính theo ngày
+
+
+DELETE FROM "LichSuMuaHang"; 
+INSERT INTO "LichSuMuaHang" values
+(222,1,'025899966'),
+(223,5,'0258147459'),
+(111,6,'002100966330');
+SELECT * FROM "LichSuMuaHang";
+
+
+
+

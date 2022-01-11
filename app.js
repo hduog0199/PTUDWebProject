@@ -1,7 +1,8 @@
-var express = require('express');
-var exphbs  = require('express-handlebars');
+//setting view engine here for project
+const express = require('express');
+const exphbs  = require('express-handlebars');
 
-var app = express();
+const app = express();
 
 app.engine('.hbs', exphbs({
     extname: '.hbs',
@@ -10,6 +11,13 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
+//
+
+//declare middleware with routes (as controller in MVC model)
+
+app.use('/admin',require('./routes/user.route'));
+
+// default handle and do not edit here.Thank you
 app.get('/', function (req, res) {
     res.render('home');
 });

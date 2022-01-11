@@ -1,0 +1,32 @@
+<div class="card">
+  <h5 class="card-header">Danh sách tài khoản</h5>
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Họ tên</th>
+      <th scope="col">CMND</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each users}}
+        <tr>
+            <th scope="row">{{this.number}}</th>
+            <td>{{this.CMND}}</td>
+            <td>{{this.Ten}}</td>
+            <td>
+                <a name="" id="" class="btn btn-primary" href="#" role="button">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                {{!-- <a name="" id="" class="btn btn-danger" href="#" role="button">
+                    <i class="fas fa-trash"></i>
+                </a> --}}
+            </td>
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>
