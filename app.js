@@ -1,9 +1,21 @@
-const qlcv=require('./utils/dbCovid');
-const qltt=require('./utils/db_httt');
+var express = require('express');
+var exphbs  = require('express-handlebars');
 
-async function main()
+var app = express();
+
+app.engine('.hbs', exphbs({
+    extname: '.hbs',
+    layoutsDir:'views/_layouts',
+    partialsDir:'views/_partials'
+}));
+app.set('view engine', '.hbs');
+
+app.get('/', function (req, res) {
+    res.render('home');
+});
+
+const PORT=3000;
+app.listen(PORT,function()
 {
-    const rows=await qltt.all('User')
-    console.log(rows);
-}
-main();
+    console.log(`Server is listened at http://localhost:${PORT}`)
+})
