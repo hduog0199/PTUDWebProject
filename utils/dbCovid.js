@@ -2,12 +2,9 @@ const config=require('../config/default.json');
 const db=require('knex')(config.qlCovid);
 
 module.exports={
-  load: async function(sqlStatement)
+  load: async function(queryString)
   {
-    return await db.raw(sqlStatement).returning('*').then(results=>results.rows).catch(err=>err.message);
-  },
-  all:  async function (tableName){
-    return await db(`${tableName}`).select('*').then(data=>data).catch(err=>err.message);
+    return await db.raw(queryString).then(results=>results.rows).catch(err=>err.message);
   },
   add:async function(tableName,entity)
   {

@@ -2,11 +2,13 @@ const config=require('../config/default.json');
 const db=require('knex')(config.httt);
 
 module.exports={
-  // query database with any sqlString by way pass sqlString
-  load: async function(sqlStatement)
-  {
-    return await db.raw(sqlStatement).returning('*').then(results=>results.rows).catch(err=>err.message);
-  },
+  // // query database with any sqlString by way pass sqlString
+  // load: async function()
+  // {
+  //   // return await db.raw(sqlStatement).returning('*').then(results=>results.rows).catch(err=>err.message);
+  //   db.raw('select * from User',[]).then(data=>console.log(data));
+  // },
+
   //get all records in table by pass params tableName
   all:  async function (tableName){
     return await db(`${tableName}`).select('*').then(data=>data).catch(err=>err.message);

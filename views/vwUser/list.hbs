@@ -5,8 +5,8 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Họ tên</th>
       <th scope="col">CMND</th>
+      <th scope="col">Họ tên</th>
       <th scope="col">&nbsp;</th>
     </tr>
   </thead>
@@ -17,7 +17,10 @@
             <td>{{this.CMND}}</td>
             <td>{{this.Ten}}</td>
             <td>
-                <a name="" id="" class="btn btn-primary" href="#" role="button">
+              <a name="" id="" class="btn btn-primary" title="Detail" href="#" role="button">
+                <i class="fas fa-info-circle"></i>
+              </a>
+                <a name="" id="" class="btn btn-primary" href="#" title="Edit"  role="button">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
                 {{!-- <a name="" id="" class="btn btn-danger" href="#" role="button">

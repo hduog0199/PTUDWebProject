@@ -11,11 +11,19 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-//
-
 //declare middleware with routes (as controller in MVC model)
 
 app.use('/admin',require('./routes/user.route'));
+app.use('/admin',require('./routes/ndql.route'));
+
+// async function main(){
+//     const dbcv=require('./utils/dbCovid');
+//     var str=`select * from "User"`
+//     var rs= await dbcv.load(str);
+//     console.log(rs);
+// }
+// main();
+
 
 // default handle and do not edit here.Thank you
 app.get('/', function (req, res) {
