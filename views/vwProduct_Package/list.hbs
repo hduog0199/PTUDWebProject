@@ -1,0 +1,31 @@
+<div class="card">
+  <h5 class="card-header">Danh sách sản phẩm</h5>
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID Sản phẩm</th>
+      <th scope="col">Tên sản phẩm</th>
+      <th scope="col">Giá tiền</th>
+      <th scope="col">ID Gói</th>
+      <th scope="col">Tên gói</th>
+      <th scope="col">Mức giới hạn sản phẩm trong một gói</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each product_packageList}}
+        <tr>
+            <th scope="row">{{this.ID}}</th>
+            <th scope="row">{{this.IDSanPham}}</th>
+            <th scope="row">{{this.TenSanPham}}</th>
+            <th scope="row">{{this.GiaTien}}</th>
+            <th scope="row">{{this.IDGoi}}</th>
+            <th scope="row">{{this.TenGoi}}</th>
+            <th scope="row">{{this.MucGioiHanSanPhamTrongMotGoi}}</th>
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>
