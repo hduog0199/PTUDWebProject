@@ -22,10 +22,12 @@ app.use('/admin', require('./routes/ttndt.route'));
 app.use('/admin', require('./routes/ddcl.route'));
 app.use('/admin', require('./routes/package.route'));
 app.use('/admin', require('./routes/product_package.route'));
-// async function main(){
-//     const dbcv=require('./utils/dbCovid');
-//     var str=`select * from "User"`
-//     var rs= await dbcv.load(str);
+app.use('/admin', require('./routes/lsmh.route'));
+
+// async function main() {
+//     const dbcv = require('./utils/dbCovid');
+//     var str = `select * from "User"`
+//     var rs = await dbcv.load(str);
 //     console.log(rs);
 // }
 // main();
