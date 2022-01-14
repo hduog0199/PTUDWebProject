@@ -15,14 +15,15 @@ app.set('view engine', '.hbs');
 
 app.use('/admin', require('./routes/user.route'));
 app.use('/admin', require('./routes/ndql.route'));
+app.use('/admin', require('./routes/lsmh.route'));
 
-async function main() {
-    const dbcv = require('./utils/dbCovid');
-    var str = `select * from "User"`
-    var rs = await dbcv.load(str);
-    console.log(rs);
-}
-main();
+// async function main() {
+//     const dbcv = require('./utils/dbCovid');
+//     var str = `select * from "User"`
+//     var rs = await dbcv.load(str);
+//     console.log(rs);
+// }
+// main();
 
 
 // default handle and do not edit here.Thank you
