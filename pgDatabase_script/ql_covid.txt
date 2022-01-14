@@ -53,10 +53,10 @@ CREATE TABLE "User" (
 
 DROP TABLE IF EXISTS "NguoiDuocQuanLi";
 CREATE TABLE "NguoiDuocQuanLi" (
-  "ID_TrangThaiHienTai" serial,
+  "ID_NguoiDuocQuanLi" serial,
   "CMND" varchar(12),
   "NguoiLienQuan" varchar(12),
-  PRIMARY KEY("ID_TrangThaiHienTai")
+  PRIMARY KEY("ID_NguoiDuocQuanLi")
 )
 ;
 
@@ -67,7 +67,7 @@ CREATE TABLE "TrangThai_NoiDieuTri" (
   "CMND" varchar(12),
   "TrangThai" varchar(12),
   "IDKhuCachLy" serial,
-  "ID_TrangThaiHienTai" serial,
+  "ID_NguoiDuocQuanLi" serial,
   "isCurrent" boolean,
   PRIMARY KEY("ID")
 )
@@ -119,7 +119,7 @@ CREATE TABLE "LichSuMuaHang" (
 
 
 ALTER TABLE "NguoiDuocQuanLi" ADD CONSTRAINT "FK_User_NguoiDuocQuanLi" FOREIGN KEY ("CMND") REFERENCES "User" ("CMND");
-ALTER TABLE "TrangThai_NoiDieuTri" ADD CONSTRAINT "FK_NguoiDuocQuanLi_TrangThai_NoiDieuTri" FOREIGN KEY ("ID_TrangThaiHienTai") REFERENCES "NguoiDuocQuanLi" ("ID_TrangThaiHienTai");
+ALTER TABLE "TrangThai_NoiDieuTri" ADD CONSTRAINT "FK_NguoiDuocQuanLi_TrangThai_NoiDieuTri" FOREIGN KEY ("ID_NguoiDuocQuanLi") REFERENCES "NguoiDuocQuanLi" ("ID_NguoiDuocQuanLi");
 ALTER TABLE "QuanHuyen" ADD CONSTRAINT "FK_Tinh_QuanHuyen" FOREIGN KEY ("IDTinh") REFERENCES "Tinh" ("IDTinh");
 ALTER TABLE "PhuongXa" ADD CONSTRAINT "FK_QuanHuyen_PhuongXa" FOREIGN KEY ("IDQuanHuyen") REFERENCES "QuanHuyen" ("IDQuanHuyen");
 ALTER TABLE "DiaDiemCachLy" ADD CONSTRAINT "FK_PhuongXa_DiaDiemCachLy" FOREIGN KEY ("IDPhuongXa") REFERENCES "PhuongXa" ("IDPhuongXa");
