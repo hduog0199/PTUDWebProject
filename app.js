@@ -15,7 +15,7 @@ app.set('view engine', '.hbs');
 
 app.use('/admin',require('./routes/user.route'));
 app.use('/admin',require('./routes/ndql.route'));
-
+app.use('/admin',require('./routes/district.route'));
 // async function main(){
 //     const dbcv=require('./utils/dbCovid');
 //     var str=`select * from "User"`
