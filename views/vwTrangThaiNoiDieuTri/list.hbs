@@ -1,0 +1,25 @@
+<div class="card">
+  <h5 class="card-header">Danh sách trạng thái và nơi điều trị</h5>
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">CMND</th>
+      <th scope="col">Trạng thái</th>
+      <th scope="col">Nơi điều trị</th>
+      <th scope="col">Hiện trạng</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each ttndtList}}
+        <tr>
+            <th scope="row">{{this.CMND}}</th>
+            <th scope="row">{{this.TrangThai}}</th>
+            <th scope="row">{{this.NoiDieuTri}}</th>
+            <th scope="row">{{this.isCurrent}}</th>
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="card">
+  <h5 class="card-header">Lịch sử mua hàng</h5>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">ID gói</th>
+          <th scope="col">CMND người mua</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each listLichSuMuaHang}}
+        <tr>
+          <th scope="row">{{this.ID}}</th>
+          <th scope="row">{{this.IDGoi}}</th>
+          <th scope="row">{{this.CMND}}</th>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

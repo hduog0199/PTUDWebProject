@@ -1,0 +1,21 @@
+<div class="card">
+  <h5 class="card-header">Danh sách tỉnh</h5>
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên tỉnh</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each proList}}
+        <tr>
+            <th scope="row">{{this.IDTinh}}</th>
+            <th scope="row">{{this.Name}}</th>
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>
