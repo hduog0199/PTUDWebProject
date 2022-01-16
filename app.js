@@ -16,12 +16,8 @@ app.set('view engine', '.hbs');
 app.use('/admin',require('./routes/user.route'));
 app.use('/admin',require('./routes/ndql.route'));
 app.use('/admin',require('./routes/district.route'));
-// async function main(){
-//     const dbcv=require('./utils/dbCovid');
-//     var str=`select * from "User"`
-//     var rs= await dbcv.load(str);
-app.use('/admin', require('./routes/sp.route'));
 app.use('/admin', require('./routes/province.route'));
+app.use('/admin', require('./routes/sp.route'));
 app.use('/admin', require('./routes/ward.route'));
 app.use('/admin', require('./routes/ttndt.route'));
 app.use('/admin', require('./routes/ddcl.route'));
