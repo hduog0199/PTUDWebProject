@@ -1,5 +1,12 @@
-<div class="card">
-  <h5 class="card-header">Danh sách người liên quan Covid</h5>
+<div class="card ">
+  <h5 class="card-header d-flex justify-content-between">
+    <p>Danh sách người liên quan COVID</p>
+    <a class="btn btn-outline-success" href="/admin/ndql/add" role="button">
+         <i class="fa fa-plus" aria-hidden="true"></i>
+         Thêm mới
+    </a>
+  </h5>
+  
   <div class="card-body">
    <table class="table">
   <thead>
@@ -11,10 +18,16 @@
     </tr>
   </thead>
   <tbody>
-   {{#each danhsachNDQL}}
+   {{#each ndqlList}}
         <tr>
-            <th scope="row">{{this.number}}</th>
+            <th scope="row">{{this.ID_NguoiDuocQuanLi}}</th>
             <th scope="row">{{this.CMND}}</th>
+            <th scope="row">{{this.Ten}}</th>
+            <th scope="row">
+              <a name="" id="" class="btn btn-primary" href="/admin/ndql/detail?cmnd={{this.CMND}}" role="button">
+                <i class="fas fa-info-circle"></i>
+              </a>
+            </th>
         </tr>
    {{/each}}
   </tbody>

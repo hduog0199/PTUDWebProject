@@ -1,18 +1,23 @@
 //setting view engine here for project
 const express = require('express');
 const exphbs = require('express-handlebars');
-
+const express_handlebars_sections = require('express-handlebars-sections');
+require('express-async-errors')
 const app = express();
 
 app.engine('.hbs', exphbs({
     extname: '.hbs',
     layoutsDir: 'views/_layouts',
-    partialsDir: 'views/_partials'
+    partialsDir: 'views/_partials',
+    helpers: {
+        section: express_handlebars_sections()
+    }
 }));
 app.set('view engine', '.hbs');
+app.use(express.urlencoded({extended:true}));
+app.use('/public',express.static('public'));
 
 //declare middleware with routes (as controller in MVC model)
-
 app.use('/admin', require('./routes/user.route'));
 app.use('/admin', require('./routes/ndql.route'));
 app.use('/admin', require('./routes/sp.route'));
@@ -38,6 +43,22 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
+//default error handler
+app.use(function(req,res)
+{
+    res.render('404',{
+        layout:false
+    })
+}); 
+app.use(function errorHandler (err, req, res, next) {
+    
+    console.log(err);
+    res.render('500',{
+        layout:false
+    })
+  })
+
+//
 const PORT = 3000;
 app.listen(PORT, function() {
     console.log(`Server is listened at http://localhost:${PORT}`)
