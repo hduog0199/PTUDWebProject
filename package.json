@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "doan nhom\r 1712519 Pham Vo Hoang Khang",
   "main": "index.js",
+  "engines": {
+    "node": "16.x.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --inspect app"
