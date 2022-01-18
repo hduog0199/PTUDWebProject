@@ -2,29 +2,16 @@
     "qlCovid":{
         "client": "pg",
         "connection": {
-          "host" : "localhost",
+          "host" : "ec2-34-205-209-14.compute-1.amazonaws.com",
           "port" : 5432,
-          "user" : "postgres",
-          "password" : "admin",
-          "database" : "ql_covid"
+          "user" : "lofbjokwdcvctp",
+          "password" : "88586b3262393e80ed28aa7c17ac99396c231ddda7b5879bf12df956a1a9438e",
+          "database" : "d4dk1t6bcgpjs5"
         },
         "pool": { 
             "min": 0,
             "max": 7 
         }
-    },
-    "httt":{
-        "client": "pg",
-        "connection": {
-          "host" : "localhost",
-          "port" : 5432,
-          "user" : "postgres",
-          "password" : "admin",
-          "database" : "httt"
-        },
-        "pool": { 
-            "min": 0,
-            "max": 7 
-        }
+    
     }
 }
