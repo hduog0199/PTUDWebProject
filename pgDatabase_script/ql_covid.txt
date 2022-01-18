@@ -35,18 +35,15 @@ CREATE TABLE "DiaDiemCachLy" (
 )
 ;
 
-
 DROP TABLE IF EXISTS "User";
 CREATE TABLE "User" (
-  "ID" serial NOT NULL,
+  "CMND" varchar(12) not NULL ,
   "Ten" varchar(50),
-  "CMND" varchar(12) NOT NULL,
   "NamSinh" integer,
   "DiaChi" varchar(150),
   "PasswordHash" varchar(70),
   "Permission" integer,
   "isOpen" integer,
---  "SoDuTaiKhoa" bigint,
   PRIMARY KEY("CMND")
 )
 ;
@@ -129,9 +126,6 @@ ALTER TABLE "LichSuMuaHang" ADD CONSTRAINT "FK_User_LichSuMuaHang" FOREIGN KEY (
 ALTER TABLE "LichSuMuaHang" ADD CONSTRAINT "FK_GoiNhuYeuPham_LichSuMuaHang" FOREIGN KEY ("IDGoi") REFERENCES "GoiNhuYeuPham" ("IDGoi");
 ALTER TABLE "SanPham_GoiNhuYeuPham" ADD CONSTRAINT "FK_GoiNhuYeuPham_SanPham_GoiNhuYeuPham" FOREIGN KEY ("IDGoi") REFERENCES "GoiNhuYeuPham" ("IDGoi");
 ALTER TABLE "SanPham_GoiNhuYeuPham" ADD CONSTRAINT "FK_SanPham_SanPham_GoiNhuYeuPham" FOREIGN KEY ("IDSanPham") REFERENCES "SanPham" ("IDSanPham");
-
-
-
 
 
 DELETE FROM "Tinh"; 
@@ -305,9 +299,6 @@ INSERT INTO "PhuongXa" values
 
 --SELECT * FROM "PhuongXa";
 
-
-
-
 DELETE FROM "DiaDiemCachLy"; 
 INSERT INTO "DiaDiemCachLy"("Name","SucChua","SoLuongTiepNhan") values
 
@@ -440,19 +431,16 @@ INSERT INTO "DiaDiemCachLy"("Name","SucChua","SoLuongTiepNhan") values
 
 
 DELETE FROM "User"; 
-INSERT INTO "User" values
-(1,'Nguyễn Văn Nam','0258147459', 1987, '8E/2 Xã Phú Lễ Huyện Ba Tri Tỉnh Bến Tre','283370f9ab31f4d00d4482fd7bd1d225563c3eb404fe947732c4e5b9075e9d8e',0,1),
-(2,'Nguyễn Văn A','0258160569', 1989, '94A32 Xã Phú Sơn Huyện Chợ Lách Tỉnh Bến Tre','',0,1),
-(3,'Nguyễn Văn Sóc','079097064665', 1966, '32 Đường Lam Son Phường 2 Quận Tân Bình Tp. Hồ Chí Minh','01e3f9c39c569b9c0eba926d24dbcac9a8d2c7e5ac1e75945948a7af04a5e053',2,1),
-(4,'Nguyễn Thành Tí','079097007799', 1962, '33A13 Ấp 4 Xã Nhị Bình Huyện Châu Thành Tỉnh Long An','4bef2a9a7a8367b1f9545ac1da88a839f8d3e09616636fff0b987dec94683d55',1,1),
-(5,'Nguyễn Thị Mầu','025095078804', 1972, '242 Ấp 1 Xã Định Hòa Huyện Lai Vung Tỉnh Đồng Tháp','32f4985f385cf93ead0bb8f374b36031cd395e0715a89475996f34854fc32973',1,1),
-(6,'Nguyễn Thị Lã Liễu','025899966', 1988, '64/5 Ấp 6 Xã Bình Phú Huyện Cai Lậy Tỉnh Tiền Giang','9a15ff56324e4488a98e6105b049cd0f00b7272b36bbd16d37f390c3cc32ff5a',0,1),
-(7,'Nguyễn Thân Trung','002100966330', 1956, '1A1 Ấp 4 Xã Lương Hòa Huyện Bến Lức Tỉnh Long An','6fe7d15716629d91e064ac6136d5ca928c081f9d6afee6c39b5efd8984fe439d',0,1);
+INSERT INTO "User"("Ten","CMND","NamSinh","DiaChi","PasswordHash","Permission","isOpen") values
+('Nguyễn Văn Nam','0258147459', 1987, '8E/2 Xã Phú Lễ Huyện Ba Tri Tỉnh Bến Tre','$2b$10$QfL43ovkg1JB9IC.O68PhOf2IZLMdxALYGFeNsaiJA8mR9pFhrm9a',0,1),
+('Nguyễn Văn A','0258160569', 1989, '94A32 Xã Phú Sơn Huyện Chợ Lách Tỉnh Bến Tre','$2b$10$dwiSe8ayfYg8bMpohcAunu03xP3v4PtjJ.8qjK2UZpgU6cziPE7..',0,1),
+('Nguyễn Văn Sóc','079097064665', 1966, '32 Đường Lam Son Phường 2 Quận Tân Bình Tp. Hồ Chí Minh','$2b$10$OLfso1RQhsOOau9OonjL.uYJ7dSWR32SUnL5/sqcflj6kO.5bObE6',2,1),
+('Nguyễn Thành Tí','079097007799', 1962, '33A13 Ấp 4 Xã Nhị Bình Huyện Châu Thành Tỉnh Long An','$2b$10$GaTncfPGToZbk6uneXmvoOK9Ff5LHOfn9us1ydNL40pHV.hzHPtTO',1,1),
+('Nguyễn Thị Mầu','025095078804', 1972, '242 Ấp 1 Xã Định Hòa Huyện Lai Vung Tỉnh Đồng Tháp','$2b$10$l5wKPh46GUKafSyySEJgSud.fFoL35o/GgPZmE/GYf0.jAWfZe69y',1,1),
+('Nguyễn Thị Lã Liễu','025899966', 1988, '64/5 Ấp 6 Xã Bình Phú Huyện Cai Lậy Tỉnh Tiền Giang','$2b$10$7PcbKkzs7nz6n/14r5eBQua8a/rzX1c748ItXPxqePqEp.zBS.rYu',0,1),
+('Nguyễn Thân Trung','002100966330', 1956, '1A1 Ấp 4 Xã Lương Hòa Huyện Bến Lức Tỉnh Long An','$2b$10$ERrEzVsbokflV7hG9MQx5efLrxifqdPBloeUAQbz4xz.HS5TcP93.',0,1);
 --SELECT * FROM "User";
 --Địachỉ= số nhà + tên đường (ấp) + XaPhuong + QuanHuyen + Tinh
-
-
-
 
 
 DELETE FROM "NguoiDuocQuanLi"; 
@@ -470,8 +458,6 @@ INSERT INTO "TrangThai_NoiDieuTri" values
 (3,'002100966330','F1',25,3,false),
 (4,'002100966330','F0',25,3,true);
 --SELECT * FROM "TrangThai_NoiDieuTri";
-
-
 
 
 DELETE FROM "SanPham"; 
@@ -508,6 +494,7 @@ INSERT INTO "GoiNhuYeuPham" values
 (6,'Combo Thịt bò',1,'2020-12-1'),
 (7,'Combo Cá',1,'2020-12-1');
 --SELECT * FROM "GoiNhuYeuPham";
+--yyyy-mm--dd
 
 DELETE FROM "SanPham_GoiNhuYeuPham"; 
 INSERT INTO "SanPham_GoiNhuYeuPham" values

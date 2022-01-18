@@ -1,6 +1,6 @@
 <div class="card">
   <h5 class="card-header d-flex justify-content-between">
-    <p>Danh sách thông tin tài khoản người quản lí</p>
+    <p>Danh sách tài khoản của quản lí</p>
     <a name="" id="" class="btn btn-outline-success" href="/admin/users/add" role="button">
       <i class="fas fa-plus"></i>
       Thêm mới
@@ -10,9 +10,8 @@
    <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">STT</th>
       <th scope="col">Tài khoản</th>
-      <th scope="col">Họ tên</th>
       <th scope="col">Tình trạng</th>
       <th scope="col">&nbsp;</th>
     </tr>
@@ -20,9 +19,8 @@
   <tbody>
    {{#each dsql}}
         <tr>
-            <th scope="row">{{this.ID}}</th>
+            <th scope="row">{{this.number}}</th>
             <td>{{this.CMND}}</td>
-            <td>{{this.Ten}}</td>
             {{#if this.isOpen}}
                 <td>Đang mở</td>
                  <td>

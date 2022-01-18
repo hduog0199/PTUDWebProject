@@ -11,37 +11,48 @@ const saltRounds = 10;
 
 route.get('/users/dsql',async function(req,res){
    const rows=await userModel.getDSQL();
-//    let number=1;
+   let number=1;
    for(let item of rows)
    {
-       delete item.PasswordHash
-    //    item.number=number++;
+       delete item.PasswordHash;
+       delete item.Ten;
+       item.number=number++;
    }
    return res.render('./vwUser/dsql',{
         isEmpty: rows.length===0,
         dsql:rows,
    });
-})
+});
+//
 route.post('/users/dsql',async function(req,res){
     userModel.update(req.query);
     return res.redirect('/admin/users/dsql')
- })
-
-route.get('/users/add',function(req,res){
-    res.render('./vwUser/add');
-})
-route.post('/users/add',function(req,res){
+});
+//
+route.get('/users/add',async function(req,res){
+    res.render('./vwUser/addManager');
+});
+//
+route.post('/users/add',async function(req,res){
+    const rows = await userModel.singleByCMND(req.body.CMND);
+    if(rows.length>0)
+    {
+        return res.render('./vwUser/addManager',{
+            message:"Tài khoản đã tồn tại.Thêm vào thất bại."
+        });
+    }
+    
     const hash = bcrypt.hashSync(req.body.password, saltRounds);
     const entity={
         CMND:req.body.CMND,
         PasswordHash:hash,
         isOpen:1,
         Permission:1,
-        Ten: req.body.Ten
     }
+    // console.log(entity);
     userModel.add(entity);
     return res.redirect('/admin/users/dsql')
 })
-
+//
 module.exports= route;
 

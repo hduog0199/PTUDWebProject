@@ -8,7 +8,7 @@ module.exports={
     },
     getDSQL:async function(){
         let sqlString=`select * from "${TBL_USER}" 
-        where "${TBL_USER}"."Permission"=1 order by "ID" ASC`;//NguoiQuanLi có Permission=1
+                        where "${TBL_USER}"."Permission"=1`;//NguoiQuanLi có Permission=1
         return await qlcv.load(sqlString);
     },
     update: async function(entity)
@@ -22,5 +22,9 @@ module.exports={
     add: async function(entity)
     {
         return await qlcv.add(TBL_USER,entity);
+    },
+    singleByCMND:async function(cmnd){
+        var sqlString=`select* from "${TBL_USER}" where "${TBL_USER}"."CMND"='${cmnd}'`;
+        return qlcv.load(sqlString);
     }
 }
