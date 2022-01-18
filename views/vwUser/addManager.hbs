@@ -1,0 +1,107 @@
+{{#section 'js'}}
+  <script>
+    $(document).ready(function(){
+      $("#message").hide(4500);
+      //
+      function validate(){
+        //
+        const cmndValue=document.getElementById('cmndID').value;
+        const cmndCheck= (cmndValue.length===12&&Number.isInteger((Number(cmndValue)))||false);
+        if(!cmndCheck)
+          return false;
+        //
+        const password=document.getElementById('passwordID');
+        const passwordCheck=(password.value.trim()).length>=6;
+        if(!passwordCheck)
+          return false;
+        //
+        const confirm=document.getElementById('confirmID');
+        const confirmCheck=(confirm.value.trim()).length>=6&&confirm.value===password.value;
+        if (!confirmCheck)
+            return false;
+        //
+        return true;
+      }
+
+      //
+      $("#formID").on(`submit`,function(event){
+        event.preventDefault();
+        const rs=validate();
+        if(rs)
+        {
+          $("#formID").off('submit').submit();
+        }
+        else{
+          $("#valid").show();
+          $("#valid").hide(5000);
+        }
+        
+      });
+      //
+      $("#cmndID").change(function(){
+        const cmnd=$(this).val();
+        if(cmnd.length===12&&Number.isInteger(Number(cmnd))){
+           $(this).next().hide();
+        }
+        else{
+          $(this).next().show();
+        }
+      });
+      //
+      $("#passwordID").change(function(){
+        if($(this).val().length<6){
+          $(this).next().show()
+        }
+        else
+          $(this).next().hide();
+      }) ;
+      //
+      $("#confirmID").change(function(){
+       
+       const len=$(this).val().length;
+        if($(this).val()===$("#passwordID").val()&&len>=6){
+            $(this).next().hide();
+        }
+        else{
+          $(this).next().show();
+        }
+      });
+      // 
+    })
+  </script>
+{{/section}}
+
+<div class="card">
+  {{#if message}}
+    <h5 class="card-header" id="message">
+        <a name="" id="" class="btn btn-warning" aria-readonly="true" href="#" role="button">
+          <i class="fas fa-exclamation-circle"></i>
+           {{message}}
+        </a>
+    </h5>
+  {{/if}}
+
+  
+  <h5 class="card-header" id="valid" >Dữ liệu không hợp lệ. Vui lòng kiểm tra lại</h5>
+  <h5 class="card-header">Thêm tài khoản quản lí</h5>
+  <div class="card-body">
+        <form method="post" id="formID">
+          <div class="form-group">
+              <label for="cmndID">Username</label>
+              <input type="text" name="CMND" autofocus class="form-control" id="cmndID">
+              <p class="text_danger">Nhập số CMND của quản lí, gồm 12 chữ số</p>
+          </div>
+          <div class="form-group">
+              <label for="passwordID">Password</label>
+              <input type="password" name="password" class="form-control" id="passwordID">
+              <p class="text_danger">Password gồm ít nhất 6 kí tự</p>
+          </div>  
+          <div class="form-group">
+              <label for="confirmID">Confirm</label>
+              <input type="password" name="confirm" class="form-control" id="confirmID">
+              <p class="text_danger">Xác thực không khớp</p>
+          </div>        
+        <button type="submit" id="idSubmit" class="btn btn-primary">Submit</button>
+        </form>
+  </div>
+</div>

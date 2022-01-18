@@ -1,0 +1,23 @@
+.parent{
+    position:relative !important;
+}
+.child{
+    position:absolute !important;
+    /* left: -100%; */
+    top: 100%;
+}
+.mr_max{
+    margin-right: 10%!important;
+}
+.ml_max{
+    margin-left: 10%!important;
+}
+.text_danger{
+    display: none;
+    color: red!important;
+    font-size: 12px;
+}
+#valid{
+    display: none;
+    color: red;
+}
