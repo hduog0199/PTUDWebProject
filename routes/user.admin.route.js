@@ -3,13 +3,14 @@ const route=express.Router();
 const userModel=require('../models/user.model');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const auth=require('../middlewares/auth.mdw');
 
 //Quản lí tài khoản người quản lí
 //1.Xem danh sách thông tin tài khoản người quản lí
 //Tài khoản bị khóa => isOpen=0
 //Tài khoản đang mở => isOpen=1
 
-route.get('/users/dsql',async function(req,res){
+route.get('/users/dsql',auth.restrict,async function(req,res){
    const rows=await userModel.getDSQL();
    let number=1;
    for(let item of rows)
