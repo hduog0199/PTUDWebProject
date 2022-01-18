@@ -47,7 +47,7 @@ app.use(async function(req,res,next){
 app.use('/authentication', require('./routes/auth.private.route'));
 //1.Chức năng cho admin:
 app.use('/admin', require('./routes/user.admin.route'));
-app.use('/admin',require('./routes/ddcl.admin.route'));
+app.use ('/admin',require('./routes/ddcl.admin.route'));
 //2.Chức năng cho người quản lí
 // app.use('/quanli',require('./routes/ndql.quanli.route'));
 //3.Chức năng cho người được quản lí - user
@@ -81,7 +81,7 @@ app.use(function errorHandler (err, req, res, next) {
     })
   });
 //
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
     console.log(`Server is listened at http://localhost:${PORT}`)
 });
