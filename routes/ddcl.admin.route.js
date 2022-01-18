@@ -12,11 +12,39 @@ route.get('/ddcl',auth.restrict, async function(req, res) {
     res.render('./vwDiaDiemCachLy/list', {
         listDiaDiemCachLy
     });
-})
+});
 //
 route.get('/ddcl/add',auth.restrict, async function(req, res) {
-    
-    res.send("them moi")
-})
+    res.render('./vwDiaDiemCachLy/add');
+});
+//Chua xong
+route.post('/ddcl/add',auth.restrict, async function(req, res) {
+    const entity={
+        Name:req.body.Name,
+        SucChua:+req.body.SucChua
+    }
+    res.redirect('/admin/ddcl/');
+});
+//
+route.get('/ddcl/edit',auth.restrict, async function(req, res) {
+    const IDKhuCachLy=+req.query.IDKhuCachLy||-1
+    const rows=await ddcl.single(IDKhuCachLy);
+    let item=null;
+    let isEmpty=false;
+    if(rows.length==0)
+        isEmpty=true;
+    else
+        item=rows[0];
+    res.render('./vwDiaDiemCachLy/edit',{
+        item:item,
+        isEmpty
+    });
+});
+//chua xong
+route.post('/ddcl/edit',auth.restrict, async function(req, res) {
+    console.log(req.body);
+    // await ddcl.update(entity,condition);
+    res.redirect('/admin/ddcl/edit');
+});
 //
 module.exports = route;

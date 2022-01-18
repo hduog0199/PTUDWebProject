@@ -8,4 +8,9 @@ module.exports = {
     all: async function() {
         return await qlcv.load(`select * from "${TBL_DDCL}"`);
     },
+    single: async function(IDKhuCachLy)
+    {
+        return await qlcv.load(`select * from "${TBL_DDCL}" where "${TBL_DDCL}"."IDKhuCachLy"= ${IDKhuCachLy}`);
+    }
+    //id admin: 079097064665
 }
