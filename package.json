@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/hduog0199/PTUDWebProject#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.2",
+    "express-async-errors": "^3.1.1",
     "express-handlebars": "^5.3.4",
+    "express-handlebars-sections": "^1.0.1",
+    "express-session": "^1.17.2",
     "knex": "^0.95.15",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1"

@@ -1,0 +1,51 @@
+<div class="card">
+  <h5 class="card-header d-flex justify-content-between">
+    <p>Danh sách tài khoản của quản lí</p>
+    <a name="" id="" class="btn btn-outline-success" href="/admin/users/add" role="button">
+      <i class="fas fa-plus"></i>
+      Thêm mới
+    </a>
+  </h5>
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Tài khoản</th>
+      <th scope="col">Tình trạng</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each dsql}}
+        <tr>
+            <th scope="row">{{this.number}}</th>
+            <td>{{this.CMND}}</td>
+            {{#if this.isOpen}}
+                <td>Đang mở</td>
+                 <td>
+                     <form action="?isOpen=0&CMND={{this.CMND}}" method="post">
+                        <button name="isOpen" id="" class="btn btn-danger" title="Khóa lại">
+                          <i class="fas fa-lock"></i>
+                          Khóa lại
+                      </button>
+                     </form>
+                </td>
+            {{else}}
+                <td>Bị khóa</td>
+                  <td>
+                    <form action="?isOpen=1&CMND={{this.CMND}}" method="post">
+                       <button name="isOpen" id="" class="btn btn-success" title="Mở khóa">
+                          <i class="fas fa-unlock-alt"></i>
+                          Mở khóa
+                      </button>
+                    </form>
+                  </td>
+               
+            {{/if}}
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>
