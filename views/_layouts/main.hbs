@@ -22,7 +22,23 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
+                {{#if isAdmin}}
 
+               <div class="card">
+                <h5 class="card-header">Tính năng</h5>
+                <div class="card-body">
+                   <div class="list-group">
+                       <a href="/admin/users/dsql" class="list-group-item list-group-item-action  border">
+                        Xem danh sách các quản lí
+                       </a>
+                       <a href="/admin/ddcl/" class="list-group-item list-group-item-action border">
+                        Xem danh sách các địa điểm cách ly
+                       </a>
+                   </div>
+                </div>
+                </div>
+                                    
+                {{/if}}
             </div>
             <div class="col-sm-9">
                 {{{body}}}

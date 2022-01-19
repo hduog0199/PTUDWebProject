@@ -1,6 +1,6 @@
 const TBL_NDQL="NguoiDuocQuanLi";
 const qlcv=require('../utils/dbCovid');
-const httt=require('../utils/db_httt');
+// const httt=require('../utils/db_httt');
 
 
 module.exports={
