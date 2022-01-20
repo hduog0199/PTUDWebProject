@@ -8,4 +8,9 @@ module.exports = {
     all: async function() {
         return await qlcv.load(`select * from "${TBL_DDCL}"`);
     },
+    singleByID: async function(id) {
+        var sqlString = `select* from "${TBL_DDCL}" where "${TBL_DDCL}"."IDKhuCachLy"='${id}'`;
+        return qlcv.load(sqlString);
+    }
+
 }
