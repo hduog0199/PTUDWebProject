@@ -1,4 +1,3 @@
-//setting view engine here for project
 const express = require('express');
 const exphbs = require('express-handlebars');
 const express_handlebars_sections = require('express-handlebars-sections');
@@ -21,6 +20,9 @@ app.engine('.hbs', exphbs({
     layoutsDir: 'views/_layouts',
     partialsDir: 'views/_partials',
     helpers: {
+        json: function (obj) {
+            return JSON.stringify(obj);
+        },
         section: express_handlebars_sections()
     }
 }));
@@ -45,8 +47,12 @@ app.use(async function(req, res, next) {
 app.use('/authentication', require('./routes/auth.private.route'));
 //1.Chức năng cho admin:
 app.use('/admin', require('./routes/user.admin.route'));
+app.use('/admin', require('./routes/ddcl.admin.route'));
 //2.Chức năng cho người quản lí
 app.use('/quanli', require('./routes/ndql.quanli.route'));
+app.use('/quanli', require('./routes/sp.quanli.route.js'));
+app.use('/quanli', require('./routes/package.quanli.route'));
+app.use('/quanli', require('./routes/product_package.quanli.route'));
 // app.use('/quanli',require('./routes/ndql.quanli.route'));
 //3.Chức năng cho người được quản lí - user
 // app.use('/admin', require('./routes/user.route'));
@@ -62,7 +68,7 @@ app.use('/admin', require('./routes/product_package.route'));
 app.use('/admin', require('./routes/lsmh.route'));
 //----------------------------------------------------------------------------------
 // Below is default handle and do not edit here.Thank you
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('home');
 });
 //default error handler
@@ -80,7 +86,7 @@ app.use(function errorHandler(err, req, res, next) {
     })
 });
 //
-const PORT = 3000;
-app.listen(PORT, function() {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function () {
     console.log(`Server is listened at http://localhost:${PORT}`)
 });

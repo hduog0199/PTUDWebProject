@@ -1,14 +1,16 @@
 const express = require('express');
 const route = express.Router();
 const packageModel = require('../models/package.model');
+const hb = require('handlebars');
+const moment = require("moment");
 
+hb.registerHelper('dateFormat', function (date, options) {
+    const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
+    return moment(date).format(formatToUse);
+});
 route.get('/package/', async function(req, res) {
-    var index = 1;
     const packageList = await packageModel.all();
-    // for (var sp of spList) {
-    //     sp.number = index++;
-    // }
-    res.render('./vwPackage/list', {
+    res.render('./vwPackage/list_user', {
         packageList
     });
 })
