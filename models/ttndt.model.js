@@ -1,6 +1,6 @@
 const TBL_TTNDT = `TrangThai_NoiDieuTri`;
 const qlcv = require('../utils/dbCovid');
-const httt = require('../utils/db_httt');
+// const httt = require('../utils/db_httt');
 
 module.exports = {
     all: async function() {

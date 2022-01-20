@@ -479,9 +479,10 @@ INSERT INTO "SanPham" values
 (15,'cơm phần - tép rang','hộp',20000),
 (16,'Dưa hấu','kilogams',20000),
 (17,'Dưa gang','kilogams',22000),
-(18,'Táo','kilogams',420000),
+(18,'Táo','kilogams',42000),
 (19,'Lê','kilogams',25000),
 (20,'Mận An Phước','kilogams',10000);
+(21,'Mận đá','kilogams',10000);
 --SELECT * FROM "SanPham";
 
 DELETE FROM "GoiNhuYeuPham"; 

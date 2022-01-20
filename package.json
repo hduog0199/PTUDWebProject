@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "doan nhom\r 1712519 Pham Vo Hoang Khang",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --inspect app"
+    "dev": "nodemon --inspect app",
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -26,6 +30,7 @@
     "express-handlebars-sections": "^1.0.1",
     "express-session": "^1.17.2",
     "knex": "^0.95.15",
+    "moment": "^2.29.1",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1"
   }

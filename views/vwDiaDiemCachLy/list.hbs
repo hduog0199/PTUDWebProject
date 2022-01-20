@@ -1,5 +1,8 @@
 <div class="card">
-  <h5 class="card-header">Danh sách địa điểm cách ly</h5>
+  <h5 class="card-header d-flex justify-content-between">
+    <p>Danh sách địa điểm cách ly</p>
+    <a name="" id="" class="btn btn-outline-success" href="/admin/ddcl/add" role="button">Thêm địa điểm cách ly</a>
+    </h5>
   <div class="card-body">
    <table class="table">
   <thead>
@@ -8,6 +11,7 @@
       <th scope="col">Name</th>
       <th scope="col">Sức chứa</th>
       <th scope="col">Số lượng tiếp nhận</th>
+      <th scope="col">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +21,11 @@
             <th scope="row">{{this.Name}}</th>
             <th scope="row">{{this.SucChua}}</th>
             <th scope="row">{{this.SoLuongTiepNhan}}</th>
+            <th scope="row">
+              <a name="" id="" class="btn btn-primary" href="edit?IDKhuCachLy={{IDKhuCachLy}}" role="button">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+            </th>
         </tr>
    {{/each}}
   </tbody>

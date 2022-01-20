@@ -1,0 +1,27 @@
+<div class="card">
+  <h5 class="card-header d-flex justify-content-between">
+        <p>Chi tiết</p>
+  </h5>
+    <div class="card-body">
+       {{#if isEmpty}}
+          <h5>Không có thông tin</h5>
+      {{else}}
+          <form method="POST">
+              <div class="form-group">
+                <label for="NameID">Tên địa điểm cách li</label>
+                <input type="text" value="{{item.Name}}" name="Name" class="form-control" readonly id="NameID">
+              </div>
+              <div class="form-group">
+                <label for="SucChuaID">Sức chứa</label>
+                <input type="number" value="{{item.SucChua}}" name="SucChua" class="form-control" readonly id="SucChuaID">
+              </div>
+              <div class="form-group">
+                <label for="SoLuongTiepNhanID">Số lượng tiếp nhận</label>
+                <input type="number" value="{{item.SoLuongTiepNhan}}" name="SoLuongTiepNhan" class="form-control" id="SoLuongTiepNhanID">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      {{/if}}
+    </div>
+</div>
