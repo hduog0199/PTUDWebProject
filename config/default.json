@@ -2,11 +2,11 @@
     "qlCovid":{
         "client": "pg",
         "connection": {
-          "host" : "ec2-34-205-209-14.compute-1.amazonaws.com",
+          "host" : "localhost",
           "port" : 5432,
-          "user" : "lofbjokwdcvctp",
-          "password" : "88586b3262393e80ed28aa7c17ac99396c231ddda7b5879bf12df956a1a9438e",
-          "database" : "d4dk1t6bcgpjs5"
+          "user" : "postgres",
+          "password" : "000000",
+          "database" : "ql_covid"
         },
         "pool": { 
             "min": 0,
