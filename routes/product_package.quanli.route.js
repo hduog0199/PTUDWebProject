@@ -11,10 +11,17 @@ hb.registerHelper('dateFormat', function (date, options) {
 
 route.get('/product_package/', async function(req, res) {
     const product_packageList = await product_packageModel.all();
-    res.render('./vwProduct_Package/list_user', {
-        product_packageList
+    const ids= new Set(product_packageList.map(e=>e.IDGoi))
+    const result = Array.from(ids).map(id=>{
+        return {
+           products: product_packageList.filter(e=>e.IDGoi===id),
+           id:id,
+        }
+    })
+
+
+    res.render('./vwProduct_Package/list_admin_quanli', {
+        result
     });
 })
-
-
 module.exports = route;

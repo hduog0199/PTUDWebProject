@@ -7,12 +7,12 @@ const app = express();
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
 
-  }
+    }
 }))
 
 app.engine('.hbs', exphbs({
@@ -20,24 +20,26 @@ app.engine('.hbs', exphbs({
     layoutsDir: 'views/_layouts',
     partialsDir: 'views/_partials',
     helpers: {
+        json: function (obj) {
+            return JSON.stringify(obj);
+        },
         section: express_handlebars_sections()
     }
 }));
 app.set('view engine', '.hbs');
-app.use(express.urlencoded({extended:true}));
-app.use('/public',express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 //
-app.use(async function(req,res,next){
-    if(!req.session.isAuthenticated)
-    {
-        res.locals.lcIsAuthenticated=false;
+app.use(async function (req, res, next) {
+    if (!req.session.isAuthenticated) {
+        res.locals.lcIsAuthenticated = false;
     }
-    else{
-        res.locals.lcIsAuthenticated=true;
-        res.locals.lcAuthUser=req.session.authUser;
-        res.locals.isAdmin=req.session.authUser.Permission===2;
-        res.locals.isManager=req.session.authUser.Permission===1;
-        res.locals.isEndUser=req.session.authUser.Permission===0;
+    else {
+        res.locals.lcIsAuthenticated = true;
+        res.locals.lcAuthUser = req.session.authUser;
+        res.locals.isAdmin = req.session.authUser.Permission === 2;
+        res.locals.isManager = req.session.authUser.Permission === 1;
+        res.locals.isEndUser = req.session.authUser.Permission === 0;
     }
     next();
 });
@@ -46,11 +48,11 @@ app.use(async function(req,res,next){
 app.use('/authentication', require('./routes/auth.private.route'));
 //1.Chức năng cho admin:
 app.use('/admin', require('./routes/user.admin.route'));
-app.use ('/admin',require('./routes/ddcl.admin.route'));
+app.use('/admin', require('./routes/ddcl.admin.route'));
 //2.Chức năng cho người quản lí
-//app.use('/quanli', require('./routes/sp.quanli.route'));
-//app.use('/quanli', require('./routes/package.quanli.route'));
-//app.use('/quanli', require('./routes/product_package.quanli.route'));
+app.use('/quanli', require('./routes/sp.quanli.route.js'));
+app.use('/quanli', require('./routes/package.quanli.route'));
+app.use('/quanli', require('./routes/product_package.quanli.route'));
 // app.use('/quanli',require('./routes/ndql.quanli.route'));
 //3.Chức năng cho người được quản lí - user
 // app.use('/admin', require('./routes/user.route'));
@@ -66,26 +68,25 @@ app.use('/admin', require('./routes/product_package.route'));
 app.use('/admin', require('./routes/lsmh.route'));
 //----------------------------------------------------------------------------------
 // Below is default handle and do not edit here.Thank you
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('home');
 });
 //default error handler
-app.use(function(req,res)
-{
-    res.render('404',{
-        layout:false
+app.use(function (req, res) {
+    res.render('404', {
+        layout: false
     })
-}); 
+});
 //default async error handler
-app.use(function errorHandler (err, req, res, next) {
-    
+app.use(function errorHandler(err, req, res, next) {
+
     console.log(err);
-    res.render('500',{
-        layout:false
+    res.render('500', {
+        layout: false
     })
-  });
+});
 //
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log(`Server is listened at http://localhost:${PORT}`)
 });

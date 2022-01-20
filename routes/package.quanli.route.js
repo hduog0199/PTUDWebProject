@@ -9,8 +9,10 @@ hb.registerHelper('dateFormat', function (date, options) {
     return moment(date).format(formatToUse);
 });
 route.get('/package/', async function(req, res) {
+
     const packageList = await packageModel.all();
-    res.render('./vwPackage/list_user', {
+
+    res.render('./vwPackage/list_admin_quanli', {
         packageList
     });
 })
