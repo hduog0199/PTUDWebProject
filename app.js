@@ -8,12 +8,12 @@ const app = express();
 
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
 
-  }
+    }
 }))
 
 app.engine('.hbs', exphbs({
@@ -25,20 +25,18 @@ app.engine('.hbs', exphbs({
     }
 }));
 app.set('view engine', '.hbs');
-app.use(express.urlencoded({extended:true}));
-app.use('/public',express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 //
-app.use(async function(req,res,next){
-    if(!req.session.isAuthenticated)
-    {
-        res.locals.lcIsAuthenticated=false;
-    }
-    else{
-        res.locals.lcIsAuthenticated=true;
-        res.locals.lcAuthUser=req.session.authUser;
-        res.locals.isAdmin=req.session.authUser.Permission===2;
-        res.locals.isManager=req.session.authUser.Permission===1;
-        res.locals.isEndUser=req.session.authUser.Permission===0;
+app.use(async function(req, res, next) {
+    if (!req.session.isAuthenticated) {
+        res.locals.lcIsAuthenticated = false;
+    } else {
+        res.locals.lcIsAuthenticated = true;
+        res.locals.lcAuthUser = req.session.authUser;
+        res.locals.isAdmin = req.session.authUser.Permission === 2;
+        res.locals.isManager = req.session.authUser.Permission === 1;
+        res.locals.isEndUser = req.session.authUser.Permission === 0;
     }
     next();
 });
@@ -48,10 +46,11 @@ app.use('/authentication', require('./routes/auth.private.route'));
 //1.Chức năng cho admin:
 app.use('/admin', require('./routes/user.admin.route'));
 //2.Chức năng cho người quản lí
+app.use('/quanli', require('./routes/ndql.quanli.route'));
 // app.use('/quanli',require('./routes/ndql.quanli.route'));
 //3.Chức năng cho người được quản lí - user
 // app.use('/admin', require('./routes/user.route'));
-app.use('/admin', require('./routes/ndql.route'));
+
 app.use('/admin', require('./routes/province.route'));
 app.use('/admin', require('./routes/district.route'));
 app.use('/admin', require('./routes/ward.route'));
@@ -67,20 +66,19 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 //default error handler
-app.use(function(req,res)
-{
-    res.render('404',{
-        layout:false
+app.use(function(req, res) {
+    res.render('404', {
+        layout: false
     })
-}); 
+});
 //default async error handler
-app.use(function errorHandler (err, req, res, next) {
-    
+app.use(function errorHandler(err, req, res, next) {
+
     console.log(err);
-    res.render('500',{
-        layout:false
+    res.render('500', {
+        layout: false
     })
-  });
+});
 //
 const PORT = 3000;
 app.listen(PORT, function() {
