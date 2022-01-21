@@ -1,0 +1,61 @@
+<div class="card ">
+  <h5 class="card-header d-flex justify-content-between">
+    <p>Thống kê tiêu thụ sản phẩm</p>
+  </h5>
+
+  <div class="card-body">
+    <ul class="mt-3">
+      {{#each allProduct}}
+      <li>Số lượng {{this.TenSanPham}} đã được tiêu thụ: {{#unless this.Count}} 0 {{/unless}}{{this.Count}}</li>
+      {{/each}}
+    </ul>
+
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+  </div>
+</div>
+
+{{#section "js"}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<script>
+  var listPackage = new Array();
+  var xValues = new Array();
+  var yValues = new Array();
+  var barColors = new Array();
+  {{#each allProduct}}
+  {{#if this.Count}}
+      console.log( `${{this.TenGoi}}` , {{this.Count}})
+      xValues.push("{{this.TenSanPham}}")
+      yValues.push({{this.Count}})
+      barColors.push("Green")    
+  {{/if}}
+  {{/each}}
+
+  var valueMin = 0
+  yValues.push(valueMin)
+
+
+  new Chart("myChart", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: "Biểu đồ thể hiện số lượng sản phẩm được tiêu thụ"
+      }
+    }
+  });
+</script>
+<script>
+
+</script>
+{{/section}}

@@ -73,6 +73,9 @@ app.use('/admin', require('./routes/ward.route'));
 
 app.use('/admin', require('./routes/ttndt.route'));
 app.use('/admin', require('./routes/ddcl.route'));
+app.use('/admin', require('./routes/package.route'));
+app.use('/admin', require('./routes/product_package.route'));
+app.use('/admin', require('./routes/statistical.route'));
 
 app.use('/admin', require('./routes/lsmh.route'));
 //----------------------------------------------------------------------------------
