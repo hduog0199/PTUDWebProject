@@ -1,7 +1,7 @@
 <div class="card ">
   <h5 class="card-header d-flex justify-content-between">
     <p>Thông tin chi tiết</p>
-    <a name="" id="" class="btn btn-success" title="Back"  href="/admin/ndql/" role="button">
+    <a name="" id="" class="btn btn-success" title="Back"  href="/quanli/ndql/" role="button">
         <i class="fas fa-backward"></i>
     </a>
   </h5>
@@ -24,6 +24,20 @@
           <div class="form-group">
               <label for="diachiID">Địa chỉ</label>
               <input type="text" name="DiaChi" class="form-control" value="{{infomation.DiaChi}}" readonly id="diachiID">
+          </div>
+          <div class="form-group">
+              <label for="trangthaiID">Trạng Thái</label>
+              <input type="text" name="TrangThai" class="form-control" value="{{ttndtinfo.TrangThai}}" readonly id="trangthaiID">
+          </div>
+          <div class="form-group">
+              <label for="noidieutriID">Nơi điều trị</label>
+              <input type="text" name="NoiDieuTri" class="form-control" value="{{ttndtinfo.IDKhuCachLy}}" readonly id="noidieutriID">
+          </div>
+          <div class="form-group">
+              <a href="/quanli/ndql/nlq?cmnd={{infomation.CMND}}"><p>Xem danh sách người liên quan</p></a>
+          </div>
+           <div class="form-group">
+              <a href="/quanli/ndql/update?cmnd={{infomation.CMND}}"><p>Thay đổi thông tin</p></a>
           </div>
         </div>
        

@@ -2,7 +2,7 @@ const TBL_LSMH = "LichSuMuaHang";
 const TBL_PACKAGE = `GoiNhuYeuPham`;
 const TBL_USER = `User`;
 const qlcv = require('../utils/dbCovid');
-const httt = require('../utils/db_httt');
+// const httt = require('../utils/db_httt');
 
 
 module.exports = {

@@ -1,14 +1,14 @@
 <div class="card ">
   <h5 class="card-header d-flex justify-content-between">
     <p>Danh sách người liên quan COVID</p>
-    <a class="btn btn-outline-success" href="/admin/ndql/add" role="button">
+    <a class="btn btn-outline-success" href="/quanli/ndql/add" role="button">
          <i class="fa fa-plus" aria-hidden="true"></i>
          Thêm mới
     </a>
   </h5>
   
   <div class="card-body">
-   <table class="table">
+   <table id="myTable" class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -24,7 +24,7 @@
             <th scope="row">{{this.CMND}}</th>
             <th scope="row">{{this.Ten}}</th>
             <th scope="row">
-              <a name="" id="" class="btn btn-primary" href="/admin/ndql/detail?cmnd={{this.CMND}}" role="button">
+              <a name="" id="" class="btn btn-primary" href="/quanli/ndql/detail?cmnd={{this.CMND}}" role="button">
                 <i class="fas fa-info-circle"></i>
               </a>
             </th>

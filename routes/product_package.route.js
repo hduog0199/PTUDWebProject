@@ -1,14 +1,17 @@
 const express = require('express');
 const route = express.Router();
 const product_packageModel = require('../models/product_package.model');
+const hb = require('handlebars');
+const moment = require("moment");
+
+hb.registerHelper('dateFormat', function (date, options) {
+    const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
+    return moment(date).format(formatToUse);
+});
 
 route.get('/product_package/', async function(req, res) {
-    var index = 1;
     const product_packageList = await product_packageModel.all();
-    // for (var sp of spList) {
-    //     sp.number = index++;
-    // }
-    res.render('./vwProduct_Package/list', {
+    res.render('./vwProduct_Package/list_user', {
         product_packageList
     });
 })

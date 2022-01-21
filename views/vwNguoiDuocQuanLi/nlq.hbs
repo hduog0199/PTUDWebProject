@@ -1,0 +1,24 @@
+<div class="card ">
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">CMND</th>
+      <th scope="col">Họ tên</th>
+      <th scope="col">Năm sinh</th>
+      <th scope="col">Địa chỉ</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each nlqList}}
+        <tr>
+            <th scope="row">{{this.CMND}}</th>
+            <th scope="row">{{this.Ten}}</th>
+            <th scope="row">{{this.NamSinh}}</th>
+            <th scope="row">{{this.DiaChi}}</th>
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>
