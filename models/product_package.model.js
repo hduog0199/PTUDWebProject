@@ -25,4 +25,10 @@ module.exports = {
         `;
         return await qlcv.load(sqlString);
       },
+            
+    singleByTenGoi: async function(TenGoi) {
+        var sqlString = `select* from "${TBL_PRODUCT_PACKAGE}" where "${TBL_PRODUCT_PACKAGE}"."TenGoi"='${TenGoi}'`;
+        return qlcv.load(sqlString);
+    }
+
 }

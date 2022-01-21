@@ -18,7 +18,6 @@
 </div>
 <div id="packageList">
   {{#each result}}
-
   <h4>{{this.products.0.TenGoi}} </h4>
     <h6> Giới hạn gói/Người: {{this.products.0.MucGioiHanGoiChoMotNguoi}} </h6>
   <div class="row">
@@ -48,7 +47,6 @@
 
 {{#section "js"}}
 <script type="text/javascript">
-
   const JSONstring = document.getElementById("greet").innerText.trim();
   const result = JSON.parse(JSONstring.replaceAll('&quot;', '"'))
   console.log(result)

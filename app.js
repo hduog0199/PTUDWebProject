@@ -30,6 +30,7 @@ app.set('view engine', '.hbs');
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static('public'));
 //
+
 app.use(async function(req, res, next) {
     if (!req.session.isAuthenticated) {
         res.locals.lcIsAuthenticated = false;
@@ -48,24 +49,34 @@ app.use('/authentication', require('./routes/auth.private.route'));
 //1.Chức năng cho admin:
 app.use('/admin', require('./routes/user.admin.route'));
 app.use('/admin', require('./routes/ddcl.admin.route'));
+app.use('/admin', require('./routes/sp.quanli.route.js'));
+app.use('/admin', require('./routes/package.quanli.route'));
+app.use('/admin', require('./routes/product_package.quanli.route'));
 //2.Chức năng cho người quản lí
 app.use('/quanli', require('./routes/ndql.quanli.route'));
 app.use('/quanli', require('./routes/sp.quanli.route.js'));
 app.use('/quanli', require('./routes/package.quanli.route'));
 app.use('/quanli', require('./routes/product_package.quanli.route'));
+app.use('/quanli', require('./routes/ndql.quanli.route'));
 // app.use('/quanli',require('./routes/ndql.quanli.route'));
 //3.Chức năng cho người được quản lí - user
 // app.use('/admin', require('./routes/user.route'));
 
+app.use('/user', require('./routes/package.route'));
+app.use('/user', require('./routes/product_package.route'));
+app.use('/user', require('./routes/sp.route'));
+
+
 app.use('/admin', require('./routes/province.route'));
 app.use('/admin', require('./routes/district.route'));
 app.use('/admin', require('./routes/ward.route'));
-app.use('/admin', require('./routes/sp.route'));
+
 app.use('/admin', require('./routes/ttndt.route'));
 app.use('/admin', require('./routes/ddcl.route'));
 app.use('/admin', require('./routes/package.route'));
 app.use('/admin', require('./routes/product_package.route'));
 app.use('/admin', require('./routes/statistical.route'));
+
 app.use('/admin', require('./routes/lsmh.route'));
 //----------------------------------------------------------------------------------
 // Below is default handle and do not edit here.Thank you
@@ -80,7 +91,6 @@ app.use(function(req, res) {
 });
 //default async error handler
 app.use(function errorHandler(err, req, res, next) {
-
     console.log(err);
     res.render('500', {
         layout: false
@@ -90,4 +100,4 @@ app.use(function errorHandler(err, req, res, next) {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
     console.log(`Server is listened at http://localhost:${PORT}`)
-});
+})

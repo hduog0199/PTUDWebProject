@@ -1,29 +1,78 @@
 <div>
   <h5 class="card-header d-flex justify-content-between">
     <p>Danh sách sản phẩm</p>
+    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm ..">
   </h5>
 </div>
-
-
-
-<div class="card">
-    <div class="card-header">
-      Search
+<div id="sp" class="row">
+  {{#each spList}}
+  <div class="col-sm-3">
+    <div class="card h-100">
+      <img src="/public/image/product/{{this.IDSanPham}}/main.jpeg" class="card-img-top">
+      <h5 class="card-title">{{this.TenSanPham}}</h5>
+      <h5 class="card-footer">{{this.GiaTien}}/{{this.DonViDinhLuong}}</h5>
     </div>
-    <div class="card-body">
-      <div class="row">
-        {{#each spList}}
-        <div class="col-sm-4">
-          <div class="card h-100">
-            <img src="/public/image/product/{{this.IDSanPham}}/main.jpeg" class="card-img-top">
-            <h5 class="card-title">{{this.TenSanPham}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{this.GiaTien}}/{{this.DonViDinhLuong}}</h6>
-          </div>
-        </div>
-        {{/each}}
-      </div>
-      <p class="card-text"></p>
-      <a href="#" class="btn btn-primary">Đầu trang</a>
-    </div>
-  
+  </div>
+  {{/each}}
 </div>
+<p class="card-text"></p>
+<a href="#" class="btn btn-primary">Đầu trang</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#searchInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#sp div").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+{{!-- <script id="greet" type="text/x-handlebars-template">
+</script>
+
+{{#section "js"}}
+<script type="text/javascript">
+  const JSONstring = document.getElementById("greet").innerText.trim();
+  function searchSP(key) {
+    const regex = new RegExp(key, 'gi');
+    const search =spList.filter(sp => {
+      if (regex.test(spList.TenSanPham))
+        return true
+      const product = spList.find(sp => {
+        return regex.test(sp.TenSanPham)
+      })
+      return !!product
+          })
+          console.log(search)
+    let element = $('#spList')
+
+    let content = ""
+    for (const sp of search) {
+      let subContent = ""
+      {
+        subContent += `
+<div class="col-sm-3">
+    <div class="card h-100">
+      <img src="/public/image/product/${sp.IDSanPham}/main.jpeg" class="card-img-top">
+      <h5 class="card-title">${sp.TenSanPham}</h5>
+      <h5 class="card-footer">${sp.GiaTien}/${sp.DonViDinhLuong}</h5>
+    </div>
+  </div>`
+      }
+      content+=`<div class="row">`
+    }
+    element.html(content)
+  }
+</script>
+{{/section}} --}}
