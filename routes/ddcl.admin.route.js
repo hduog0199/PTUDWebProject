@@ -3,7 +3,7 @@ const route = express.Router();
 const ddcl = require('../models/ddcl.model.js');
 const auth=require('../middlewares/auth.mdw');
 //
-route.get('/ddcl',auth.restrict, async function(req, res) {
+route.get('/ddcl', async function(req, res) {
     var index = 1;
     const listDiaDiemCachLy = await ddcl.all();
     for (var item of listDiaDiemCachLy) {
@@ -14,11 +14,11 @@ route.get('/ddcl',auth.restrict, async function(req, res) {
     });
 });
 //
-route.get('/ddcl/add',auth.restrict, async function(req, res) {
+route.get('/ddcl/add', async function(req, res) {
     res.render('./vwDiaDiemCachLy/add');
 });
 //Chua xong
-route.post('/ddcl/add',auth.restrict, async function(req, res) {
+route.post('/ddcl/add', async function(req, res) {
     const entity={
         Name:req.body.Name,
         SucChua:+req.body.SucChua

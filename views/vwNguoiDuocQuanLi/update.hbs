@@ -1,0 +1,33 @@
+<div class="card">
+  <h5 class="card-header">Thay đổi thông tin người liên quan COVID</h5>
+  <div class="card-body">
+        <form method="post">
+          <div class="form-group">
+              <label for="cmndID" >CMND</label>
+              <input type="text" name="CMND" value="{{infomation.CMND}}" autofocus class="form-control" id="cmndID">
+          </div>
+          <div class="form-group">
+              <label for="tenID">Họ và tên</label>
+              <input type="text" name="Ten" value="{{infomation.Ten}}" class="form-control" id="tenID">
+          </div>
+           <div class="form-group">
+              <label for="namsinhID">Năm sinh</label>
+              <input type="number" name="NamSinh" value="{{infomation.NamSinh}}" class="form-control" id="namsinhID">
+          </div>
+          <div class="form-group">
+              <label for="diachiID">Địa chỉ</label>
+              <input type="text" name="DiaChi" value="{{infomation.DiaChi}}" class="form-control" id="diachiID">
+          </div>
+          <div class="form-group">
+              <label for="trangthaiID">Trạng Thái</label>
+              <input type="text" name="TrangThai" class="form-control" value="{{ttndtinfo.TrangThai}}"  id="trangthaiID">
+          </div>
+          <div class="form-group">
+              <label for="noidieutriID">Nơi điều trị</label>
+              <input type="text" name="NoiDieuTri" class="form-control" value="{{ttndtinfo.IDKhuCachLy}}" id="noidieutriID">
+          </div>
+       
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+  </div>
+</div>

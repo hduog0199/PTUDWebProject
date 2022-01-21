@@ -1,31 +1,79 @@
-<div class="card">
-  <h5 class="card-header">Danh sách sản phẩm</h5>
-  <div class="card-body">
-   <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">ID Sản phẩm</th>
-      <th scope="col">Tên sản phẩm</th>
-      <th scope="col">Giá tiền</th>
-      <th scope="col">ID Gói</th>
-      <th scope="col">Tên gói</th>
-      <th scope="col">Mức giới hạn sản phẩm trong một gói</th>
-    </tr>
-  </thead>
-  <tbody>
-   {{#each product_packageList}}
-        <tr>
-            <th scope="row">{{this.ID}}</th>
-            <th scope="row">{{this.IDSanPham}}</th>
-            <th scope="row">{{this.TenSanPham}}</th>
-            <th scope="row">{{this.GiaTien}}</th>
-            <th scope="row">{{this.IDGoi}}</th>
-            <th scope="row">{{this.TenGoi}}</th>
-            <th scope="row">{{this.MucGioiHanSanPhamTrongMotGoi}}</th>
-        </tr>
-   {{/each}}
-  </tbody>
-</table>
-  </div>
+<div>
+  <h5 class="card-header d-flex justify-content-between">
+    <p>Danh sách sản phẩm</p>
+  
+    <input type="text" id="searchInput" oninput="searchPackage(this.value)">
+  </h5>
 </div>
+<div id="packageList">
+  {{#each result}}
+  <h4>{{this.products.0.TenGoi}} </h4>
+    <h6> Giới hạn gói/Người: {{this.products.0.MucGioiHanGoiChoMotNguoi}} </h6>
+  <div class="row">
+    {{#each this.products}}
+    <div class="col-sm-3">
+      <div class="card">
+        <img src="/public/image/product/{{this.IDSanPham}}/main.jpeg" class="card-img-top">
+        <h5 class="card-title">{{this.TenSanPham}}</h5>
+        <h6 class="card-text">{{this.GiaTien}}/{{this.DonViDinhLuong}}</h6>
+        <h6 class="card-text">Giới hạn/Gói: {{this.MucGioiHanSanPhamTrongMotGoi}}</h6>
+        <h6 class="card-footer">Thời gian giới hạn đến:{{dateFormat this.ThoiGianGioiHan}}</h6>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+  {{/each}}
+</div>
+<p class="card-text"></p>
+<a href="#" class="btn btn-primary">Đầu trang</a>
+
+
+
+<script id="greet" type="text/x-handlebars-template">
+  {{json result}}
+</script>
+
+{{#section "js"}}
+<script type="text/javascript">
+  const JSONstring = document.getElementById("greet").innerText.trim();
+  const result = JSON.parse(JSONstring.replaceAll('&quot;', '"'))
+  console.log(result)
+  function searchPackage(key) {
+    const regex = new RegExp(key, 'gi');
+    const search = result.filter(package => {
+      if (regex.test(package.products[0].TenGoi))
+        return true
+      const product = package.products.find(product => {
+        return regex.test(product.TenSanPham)
+      })
+      return !!product
+    })
+    console.log(search)
+    let element = $('#packageList')
+
+    let content = ""
+    for (const package of search) {
+      let subContent = ""
+      for (const product of package.products) {
+        subContent += `
+    <div class="col-sm-3">
+      <div class="card">
+        <img src="/public/image/product/${product.IDSanPham}/main.jpeg" class="card-img-top">
+        <h5 class="card-title">${product.TenSanPham}</h5>
+        <h6 class="card-text">${product.GiaTien}/${product.DonViDinhLuong}}</h6>
+        <h6 class="card-text">Giới hạn/Gói: ${product.MucGioiHanSanPhamTrongMotGoi}</h6>
+        <h6 class="card-footer">Thời gian giới hạn đến: ${product.ThoiGianGioiHan}</h6>
+      </div>
+    </div>`
+
+      }
+      content+=` <h4>${package.products[0].TenGoi}</h4>
+       <h6> Giới hạn gói/Người: ${package.products[0].MucGioiHanGoiChoMotNguoi} </h6>
+  <div class="row"> ${subContent} </div>`
+    }
+    element.html(content)
+  }
+
+</script>
+{{/section}}

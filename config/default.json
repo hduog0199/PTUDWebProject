@@ -1,7 +1,7 @@
 
 
 {
-    "qlCovid":{
+    "qlCovid": {
         "client": "pg",
         "connection": {
           "host" : "localhost",
@@ -10,9 +10,9 @@
           "password" : "admin",
           "database" : "ql_covid"
         },
-        "pool": { 
+        "pool": {
             "min": 0,
-            "max": 7 
+            "max": 7
         }
     }
 

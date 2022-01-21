@@ -16,7 +16,7 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0 mr-auto">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control mr-sm-2" id="myInput" type="search" onkeyup="myFunction()" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     {{!--  --}}
@@ -61,3 +61,25 @@
     </ul>
   </div>
 </nav>
+<script>
+  function myFunction() {
+  var input, filter, table, tr, td, cell, i, j;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    tr[i].style.display = "none";
+    th = tr[i].getElementsByTagName("th");
+    for (var j = 0; j < th.length; j++) {
+      cell = tr[i].getElementsByTagName("th")[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } 
+      }
+    }
+  }
+}
+</script>
