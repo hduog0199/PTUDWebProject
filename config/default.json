@@ -4,16 +4,29 @@
     "qlCovid": {
         "client": "pg",
         "connection": {
-          "host" : "localhost",
-          "port" : 5432,
-          "user" : "postgres",
-          "password" : "admin",
-          "database" : "ql_covid"
+            "host": "localhost",
+            "port": 5432,
+            "user": "postgres",
+            "password": "admin",
+            "database": "ql_covid"
+        },
+        "pool": {
+            "min": 0,
+            "max": 7
+        }
+    },
+    "httt": {
+        "client": "pg",
+        "connection": {
+            "host": "localhost",
+            "port": 5432,
+            "user": "postgres",
+            "password": "admin",
+            "database": "httt"
         },
         "pool": {
             "min": 0,
             "max": 7
         }
     }
-
 }

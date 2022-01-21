@@ -21,8 +21,10 @@ route.get('/ddcl/add', async function(req, res) {
 route.post('/ddcl/add', async function(req, res) {
     const entity={
         Name:req.body.Name,
-        SucChua:+req.body.SucChua
+        SucChua:+req.body.SucChua,
+        SoLuongTiepNhan:0
     }
+    console.log(entity);
     res.redirect('/admin/ddcl/');
 });
 //
@@ -40,11 +42,16 @@ route.get('/ddcl/edit',auth.restrict, async function(req, res) {
         isEmpty
     });
 });
-//chua xong
+//
 route.post('/ddcl/edit',auth.restrict, async function(req, res) {
-    console.log(req.body);
-    // await ddcl.update(entity,condition);
-    res.redirect('/admin/ddcl/edit');
+    if(req.body.SoLuongTiepNhan>req.body.SucChua)
+        return res.redirect('/admin/ddcl/');
+    const entity={
+        IDKhuCachLy: +req.query.IDKhuCachLy||-1,
+        SoLuongTiepNhan: +req.body.SoLuongTiepNhan
+    }
+    await ddcl.update(entity);
+    res.redirect('/admin/ddcl/');
 });
 //
 module.exports = route;

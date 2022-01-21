@@ -8,9 +8,22 @@ module.exports = {
     all: async function() {
         return await qlcv.load(`select * from "${TBL_DDCL}"`);
     },
+    singleByID: async function(id) {
+        var sqlString = `select* from "${TBL_DDCL}" where "${TBL_DDCL}"."IDKhuCachLy"='${id}'`;
+        return qlcv.load(sqlString);
+    },
+
     single: async function(IDKhuCachLy)
     {
         return await qlcv.load(`select * from "${TBL_DDCL}" where "${TBL_DDCL}"."IDKhuCachLy"= ${IDKhuCachLy}`);
+    },
+    update: async function(entity)
+    {
+        const condition={
+            IDKhuCachLy:entity.IDKhuCachLy
+        }
+        console.log(entity);
+        delete entity.IDKhuCachLy;
+        return await qlcv.patch(TBL_DDCL,entity,condition);
     }
-    //id admin: 079097064665
 }

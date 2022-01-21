@@ -26,6 +26,17 @@
         <div class="row d-flex justify-content-center">
             {{#if isAdmin}}
             <div class="col-sm-3">
+
+                <ul class="navbar-nav mr_max">
+         <li class="nav-item dropdown parent">
+        <a class="btn btn-secondary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Sắp xếp
+        </a>
+        <div class="dropdown-menu child" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" onclick="sortTableName()">Theo tên</a>
+          <a class="dropdown-item" onclick="sortTableCMND()">Theo CMND</a>
+        </div>
+      </li>
                 <div class="card">
                     <h5 class="card-header">Tính năng</h5>
                     <div class="card-body">
@@ -39,6 +50,7 @@
                         </div>
                     </div>
                 </div>
+
                 <ul class="navbar-nav mr_max">
          <li class="nav-item dropdown parent">
         <a class="btn btn-secondary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -49,6 +61,7 @@
           <a class="dropdown-item" onclick="sortTableCMND()">Theo CMND</a>
         </div>
       </li>
+
             </div>
             {{/if}}
             <div class="col-sm-9">

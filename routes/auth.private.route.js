@@ -9,7 +9,7 @@ route.get('/login',async function(req,res){
     res.render('login',{
         layout:false
     })
-})
+});
 //
 route.post('/login',async function(req,res){
     const rows= await userModel.singleByCMND(req.body.username);
@@ -40,11 +40,20 @@ route.post('/login',async function(req,res){
     req.session.isAuthenticated=true;
     delete account.PasswordHash;
     req.session.authUser=account;
+    req.session.isAdmin=account.Permission===2;
+    req.session.isManager=account.Permission===1;
+    req.session.isUser=account.Permission===0;
     res.redirect('/authentication/profile');
 });
 //
 route.get("/profile",authMDW.restrict,async function(req,res){
-    res.render('./vwUser/profile');
+    const user=res.locals.lcAuthUser;
+    res.render('./vwUser/profile',{
+        user:user,
+        isAdmin:user.Permission===2,
+        isManager:user.Permission===1,
+        isUser:user.Permission===1
+    });
 });
 //
 route.post("/logout",async function(req,res){

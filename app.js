@@ -53,6 +53,7 @@ app.use('/admin', require('./routes/sp.quanli.route.js'));
 app.use('/admin', require('./routes/package.quanli.route'));
 app.use('/admin', require('./routes/product_package.quanli.route'));
 //2.Chức năng cho người quản lí
+app.use('/quanli', require('./routes/ndql.quanli.route'));
 app.use('/quanli', require('./routes/sp.quanli.route.js'));
 app.use('/quanli', require('./routes/package.quanli.route'));
 app.use('/quanli', require('./routes/product_package.quanli.route'));
@@ -60,9 +61,11 @@ app.use('/quanli', require('./routes/ndql.quanli.route'));
 // app.use('/quanli',require('./routes/ndql.quanli.route'));
 //3.Chức năng cho người được quản lí - user
 // app.use('/admin', require('./routes/user.route'));
+
 app.use('/user', require('./routes/package.route'));
 app.use('/user', require('./routes/product_package.route'));
 app.use('/user', require('./routes/sp.route'));
+
 
 app.use('/admin', require('./routes/province.route'));
 app.use('/admin', require('./routes/district.route'));
