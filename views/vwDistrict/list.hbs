@@ -1,0 +1,21 @@
+<div class="card">
+  <h5 class="card-header">Danh sách Quận Huyện</h5>
+  <div class="card-body">
+   <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tên Quận Huyện</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each districtList}}
+        <tr>
+            <th scope="row">{{this.IDQuanHuyen}}</th>
+            <th scope="row">{{this.Name}}</th>
+        </tr>
+   {{/each}}
+  </tbody>
+</table>
+  </div>
+</div>

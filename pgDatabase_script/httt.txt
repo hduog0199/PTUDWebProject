@@ -1,0 +1,44 @@
+DROP TABLE IF EXISTS "User";
+CREATE TABLE "User" (
+  "ID" serial NOT NULL,
+  "SoTaiKhoan" varchar(12) NOT NULL,
+  "SoDuTaiKhoa" bigint,
+  PRIMARY KEY("SoTaiKhoan")
+)
+;
+--STK=CMND ---- if(STK==1)(CMND=main) 
+
+DROP TABLE IF EXISTS "LichSuThanhToan";
+CREATE TABLE "LichSuThanhToan" (
+  "ID" serial NOT NULL,
+  "MaGiaoDich" varchar(50) NOT NULL,
+  "STKNguoiChuyen" varchar(12) NOT NULL,
+  "SoTien" bigint NOT NULL,
+  "ThoiDiemGiaoDich" timestamp NOT NULL,
+  "LoaiGiaoDich" boolean NOT NULL,
+  PRIMARY KEY("MaGiaoDich")
+)
+;     
+--MaGiaoDich= LoaiGiaoDich(1/0)+STK+ThoiDiemGiaoDich
+--LoaiGiaoDich: false=Chuyển đi - true= Nhận được
+ALTER TABLE "LichSuThanhToan" ADD CONSTRAINT "FK_User_LichSuThanhToan" FOREIGN KEY ("STKNguoiChuyen") REFERENCES "User" ("SoTaiKhoan");
+DELETE FROM "User";
+INSERT INTO "User" values
+(1,'0258147369', 1000000),
+(2,'0258147963', 2500000),
+(3,'0258123666', 500000),
+(4,'0258987654', 0),
+(5,'0258123456', 16000000),
+(6,'0258262626', 20000000),
+(7,'0258121212', 1500000),
+(8,'0258989994', 0),
+(9,'0258233434', 1600000),
+(10,'0258277776', 2500000);
+--SELECT * FROM "User";
+
+DELETE FROM "LichSuThanhToan";
+INSERT INTO "LichSuThanhToan" values
+(1,'0025814736920201005140110','0258147369',500000,'2020-10-05 14:01:10-08',false),
+(2,'0025814796320201005091440','0258147963', 2500000,'2020-10-05 09:14:40-08',false),
+(3,'0025827777620201005091400','0258277776', 2500000,'2020-10-05 09:14',false);
+

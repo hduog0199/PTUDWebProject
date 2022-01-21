@@ -1,10 +1,56 @@
+{{#section 'js'}}
+  <script>
+    $(document).ready(function(){
+      $("#message").hide(4500);
+      //
+      function validate(){
+        const cmndValue=document.getElementById('cmndID').value;
+        const cmndCheck= (cmndValue.length===12&&Number.isInteger((Number(cmndValue)))||false);
+        if(!cmndCheck)
+          return false;
+        return true
+      }
+
+      //
+      $("#formID").on(`submit`,function(event){
+        event.preventDefault();
+        const rs=validate();
+        if(rs)
+        {
+          $("#formID").off('submit').submit();
+        }
+      });
+      //
+      $("#cmndID").change(function(){
+        const cmnd=$(this).val();
+        if(cmnd.length===12&&Number.isInteger(Number(cmnd))){
+           $(this).next().hide();
+        }
+        else{
+          $(this).next().show();
+        }
+      });
+    })
+  </script>
+{{/section}}
+
+
 <div class="card">
+    {{#if message}}
+    <h5 class="card-header" id="message">
+        <a name="" id="" class="btn btn-warning" aria-readonly="true" href="#" role="button">
+          <i class="fas fa-exclamation-circle"></i>
+           {{message}}
+        </a>
+    </h5>
+  {{/if}}
   <h5 class="card-header">Thêm mới người liên quan COVID</h5>
   <div class="card-body">
-        <form method="post">
+        <form method="post" id="formID">
           <div class="form-group">
               <label for="cmndID" >CMND</label>
               <input type="text" name="CMND" autofocus class="form-control" id="cmndID">
+              <p class="text_danger">Nhập số CMND của người liên quan gồm 12 chữ số</p>
           </div>
           <div class="form-group">
               <label for="tenID">Họ và tên</label>
@@ -18,7 +64,14 @@
               <label for="diachiID">Địa chỉ</label>
               <input type="text" name="DiaChi" class="form-control" id="diachiID">
           </div>
-          
+          <div class="form-group">
+              <label for="trangthaiID">Trạng thái hiện tại</label>
+              <input type="text" name="TrangThai" class="form-control" id="trangthaiID">
+          </div>
+          <div class="form-group">
+              <label for="noicachliID">ID Nơi cách li</label>
+              <input type="text" name="NoiCachLy" class="form-control" id="noicachliID">
+          </div>
        
         <button type="submit" class="btn btn-primary">Submit</button>
         </form>

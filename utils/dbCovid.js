@@ -17,3 +17,4 @@ module.exports={
     return await db(`${tableName}`).where(condition).del().returning('*').then(rs=>rs).catch(err=>err.message);
   }
 }
+

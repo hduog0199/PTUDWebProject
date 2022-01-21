@@ -9,13 +9,10 @@ module.exports = {
     all: async function() {
         return qlcv.load(
             `select * 
-            from "${TBL_PRODUCT_PACKAGE}" as pp;
+            from "${TBL_PRODUCT_PACKAGE}" as pp
+            inner join "${TBL_PRODUCT}" as product on pp."IDSanPham" = product."IDSanPham"
+            inner join "${TBL_PACKAGE}" as package on pp."IDGoi" = package."IDGoi";
             `
-            // `select * 
-            // from "${TBL_PRODUCT_PACKAGE}" as pp
-            // inner join "${TBL_PRODUCT}" as product on pp.IDSanPham = product.IDSanPham
-            // inner join "${TBL_PACKAGE}" as package on pp.IDGoi = package.IDGoi;
-            // `
             );
     }
 }
