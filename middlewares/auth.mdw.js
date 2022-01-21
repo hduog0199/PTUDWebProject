@@ -4,6 +4,7 @@ module.exports={
         {
             return res.redirect('/authentication/login');
         }
+        console.log(req.session.isAdmin);
         next();
     }
 }
