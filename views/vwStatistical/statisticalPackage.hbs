@@ -1,0 +1,81 @@
+<div class="card ">
+  <h5 class="card-header d-flex justify-content-between">
+    <p>Thống kê tiêu thụ gói nhu yếu phẩm</p>
+  </h5>
+
+  <div class="card-body">
+    <ul class="mt-3">
+      {{#each allPackage}}
+      <li>Số lượng {{this.TenGoi}} đã được tiêu thụ: {{this.Count}}</li>
+      {{/each}}
+    </ul>
+
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">CMND</th>
+          <th scope="col">Họ tên</th>
+          <th scope="col">ID Gói</th>
+          <th scope="col">Tên Gói</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {{#each allPackageInAllBill}}
+        <tr>
+          <td>{{this.CMND}}</td>
+          <td>{{this.Ten}}</td>
+          <td>{{this.IDGoi}}</td>
+          <td>{{this.TenGoi}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{{#section "js"}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<script>
+  var listPackage = new Array();
+  var xValues = new Array();
+  var yValues = new Array();
+  var barColors = new Array();
+  {{#each allPackage}}
+      console.log( `${{this.TenGoi}}` , {{this.Count}})
+      xValues.push("{{this.TenGoi}}")
+      yValues.push({{this.Count}})
+      barColors.push("blue")
+  {{/each}}
+
+  var valueMin = 0
+  yValues.push(valueMin)
+
+
+  new Chart("myChart", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: "Biểu đồ thể hiện số lượng gói được tiêu thụ"
+      }
+    }
+  });
+</script>
+<script>
+
+</script>
+{{/section}}
